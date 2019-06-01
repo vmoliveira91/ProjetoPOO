@@ -12,44 +12,39 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
 
     private final Turma turma;
     private final Fachada fachada;
+    private ArrayList<RendimentoEscolar> rendimento;
 
     public TelaProfessorDetalhesTurma(Turma turma, Fachada fachada) {
         initComponents();
         this.turma = turma;
         this.fachada = fachada;
+        this.pegarAlunos();
         this.preencherTable();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
+    private void pegarAlunos() {
+        try {
+            this.rendimento = this.fachada.exibirNotasProfessor(this.turma.getId());
+        } catch (SemAlunoMatriculadoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            this.salvarButton.setEnabled(false);
+            this.mediasButton.setEnabled(false);
+        }
+    }
+
     private void preencherTable() {
         DefaultTableModel model = (DefaultTableModel) alunosTable.getModel();
         Object rowData[] = new Object[7];
-        ArrayList<Aluno> alunos = this.turma.getAlunos();
-        if (!alunos.isEmpty()) {
-            ArrayList<RendimentoEscolar> rendimento = new ArrayList();
 
-            try {
-                rendimento = this.fachada.exibirNotasProfessor(this.turma.getId());
-            } catch (SemAlunoMatriculadoException e) {
-                JOptionPane.showConfirmDialog(null, e.getMessage());
-            }
-            for (int i = 0; i < alunos.size(); i++) {
-                rowData[0] = alunos.get(i).getNome();
-                float nota1 = 0, nota2 = 0;
-                String[] trabalhos = null;
-                float[] notaTrabalhos = null;
-                for (int j = 0; j < rendimento.size(); j++) {
-                    if (rendimento.get(j).getAluno().getId() == alunos.get(i).getId()) {
-                        nota1 = rendimento.get(j).getNota1();
-                        nota2 = rendimento.get(j).getNota2();
-                        trabalhos = rendimento.get(j).getTrabalhos();
-                        notaTrabalhos = rendimento.get(j).getNotaTrabalhos();
-                        break;
-                    }
-                }
-                rowData[1] = nota1;
-                rowData[2] = nota2;
+        if (this.rendimento != null) {
+            for (int i = 0; i < rendimento.size(); i++) {
+                rowData[0] = rendimento.get(i).getAluno().getNome();
+                String[] trabalhos = rendimento.get(i).getTrabalhos();
+                float[] notaTrabalhos = rendimento.get(i).getNotaTrabalhos();
+                rowData[1] = rendimento.get(i).getNota1();
+                rowData[2] = rendimento.get(i).getNota2();
                 int cont = 3;
                 if (trabalhos != null) {
                     for (int k = 0; k < 4; k++) {
@@ -68,9 +63,6 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
                 }
                 model.addRow(rowData);
             }
-        } else {
-            this.salvarButton.setEnabled(false);
-            this.mediasButton.setEnabled(false);
         }
     }
 
@@ -173,7 +165,7 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
         DefaultTableModel model = (DefaultTableModel) alunosTable.getModel();
-        ArrayList<Aluno> alunos = this.turma.getAlunos();
+        //ArrayList<Aluno> alunos = this.turma.getAlunos();
         int quantRow = model.getRowCount();
         String nome, trabalho;
         int cont;
@@ -195,8 +187,9 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
                 cont++;
             }
             try {
-                this.fachada.atualizarNotasProfessor(this.turma.getId(), alunos.get(i).getId(), nota1, nota2);
-                this.fachada.atualizarNotasTrabalhosProfessor(this.turma.getId(), alunos.get(i).getId(), notaTrabalhos);
+                this.fachada.atualizarNotasProfessor(this.turma.getId(), this.rendimento.get(i).getAluno().getId(), nota1, nota2);
+                this.fachada.atualizarNotasTrabalhosProfessor(this.turma.getId(), this.rendimento.get(i).getAluno().getId(), notaTrabalhos);
+                this.pegarAlunos();
             } catch (NotaInvalidaException e) {
                 JOptionPane.showConfirmDialog(null, e.getMessage());
             }

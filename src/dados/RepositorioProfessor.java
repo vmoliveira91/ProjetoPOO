@@ -8,6 +8,7 @@ import negocios.excecoes.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class RepositorioProfessor implements IRepositorioProfessor {
 
@@ -111,44 +112,25 @@ public class RepositorioProfessor implements IRepositorioProfessor {
         Statement statement = null;
 
         ArrayList<Turma> turma = new ArrayList<Turma>();
-
-        String sqlSelect = "select t.id as id, t.capacidade_turma as cap, t.id_disciplina as discId, d.nome as discNome, "
-                + "d.ementa as discEmenta, t.id_professor as profId, p.nome as profNome, p.cargo as profCargo, aa.id as alunoId, "
-                + "aa.nome as alunoNome from turma as t\n"
-                + "inner join disciplina as d on t.id_disciplina = d.id\n"
-                + "inner join professor as p on t.id_professor = p.id\n"
-                + "left join alunos_na_turma as a on t.id = a.id_turma\n"
-                + "left join aluno as aa on a.id_aluno == aa.id\n"
-                + "where p.id = " + professorId + ";";
+        
+        String sqlSelect = "select distinct t.id as id, t.capacidade_turma as cap, t.id_disciplina as discId, d.nome as discNome from turma as t\n" +
+                "inner join disciplina as d on t.id_disciplina = d.id\n" +
+                "where t.id_professor = " + professorId + ";";
 
         statement = this.conexao.criarStatement();
 
         try {
             resultSet = statement.executeQuery(sqlSelect);
-            //while(resultSet.next()) {
-            do {
-                int turmaId = resultSet.getInt("id"); System.out.println(turmaId + "");
+            while(resultSet.next()) {
+                int turmaId = resultSet.getInt("id");
                 int turmaCapacidade = resultSet.getInt("cap");
                 int disciplinaId = resultSet.getInt("discId");
                 String disciplinaNome = resultSet.getString("discNome");
-                String discEmenta = resultSet.getString("discEmenta");
-                professorId = resultSet.getInt("profId");
-                String profNome = resultSet.getString("profNome");
-                String profCargo = resultSet.getString("profCargo");
 
-                ArrayList<Aluno> alunos = new ArrayList();
+                Disciplina disciplina = new Disciplina(disciplinaId, disciplinaNome, "");
 
-                Disciplina disciplina = new Disciplina(disciplinaId, disciplinaNome, discEmenta);
-                Professor professor = new Professor(professorId, profNome, profCargo, 0, 0, 0, null, null);
-
-                while (resultSet.next()) {
-                    if (resultSet.getInt("alunoId") != 0) {
-                        alunos.add(new Aluno(resultSet.getInt("alunoId"), resultSet.getString("alunoNome"), 0, 0, 0, 0, null, null));
-                    }
-                }
-
-                turma.add(new Turma(turmaId, disciplina, professor, turmaCapacidade, alunos));
-            } while(resultSet.next());
+                turma.add(new Turma(turmaId, disciplina, null, turmaCapacidade, null));
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -172,7 +154,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
         this.conexao.conectar();
 
         ArrayList<RendimentoEscolar> rendimentos = new ArrayList();
-
+        
         ResultSet resultSet = null;
         Statement statement = null;
 
@@ -186,7 +168,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
 
         try {
             resultSet = statement.executeQuery(sqlSelect);
-
+            
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 turmaId = resultSet.getInt("turmaId");
@@ -212,7 +194,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        if (rendimentos == null) {
+        if (rendimentos.isEmpty()) {
             throw new SemAlunoMatriculadoException("Sem aluno matriculado!");
         } else {
             return rendimentos;
@@ -337,7 +319,30 @@ public class RepositorioProfessor implements IRepositorioProfessor {
 
     @Override
     public boolean associarTurmaProfessor(Professor professor, int turmaId) {
-
+        this.conexao.conectar();
+        ResultSet resultSet = null;
+        Statement statement = null;
+        
+        String sqlUpdate = "update turma set id_professor = " + professor.getId() + " "
+                + "where id = " + turmaId + ";";
+        
+        statement = this.conexao.criarStatement();
+        
+        try {
+            statement.executeUpdate(sqlUpdate);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } finally {
+            try {
+                //resultSet.close();
+                statement.close();
+                this.conexao.desconectar();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        
+        return true;
     }
 
 }

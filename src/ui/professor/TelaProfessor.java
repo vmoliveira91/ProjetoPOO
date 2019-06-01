@@ -189,6 +189,7 @@ public class TelaProfessor extends javax.swing.JFrame {
         modelBox.removeAllElements();
         DefaultTableModel modelTable = (DefaultTableModel) turmasTable.getModel();
         modelTable.setRowCount(0);
+        this.pegarTurmas();
         this.preencherBox();
         this.preencherTable();
     }//GEN-LAST:event_atualizarButtonActionPerformed

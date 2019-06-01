@@ -22,9 +22,12 @@ public class TelaProfessorTurmasDisponiveis extends javax.swing.JFrame {
         this.professor = professor;
         this.fachada = fachada;
         this.pegarTurmas();
-        if (!this.turmas.isEmpty()) {
+        //if (!this.turmas.isEmpty()) {
+        if(this.turmas != null) {
             this.preencherBox();
             this.preencherTable();
+        } else {
+            this.associarButton.setEnabled(false);
         }
     }
 
@@ -141,9 +144,9 @@ public class TelaProfessorTurmasDisponiveis extends javax.swing.JFrame {
         String[] dadosTurma = turma.split(" ");
         int turmaId = Integer.parseInt(dadosTurma[0]);
         if (this.fachada.associarTurmaProfessor(professor, turmaId)) {
-            JOptionPane.showConfirmDialog(null, "Professor associado a turma com sucesso!");
+            JOptionPane.showMessageDialog(null, "Professor associado a turma com sucesso!");
         } else {
-            JOptionPane.showConfirmDialog(null, "Professor não associado a turma!");
+            JOptionPane.showMessageDialog(null, "Professor não associado a turma!");
         }
     }//GEN-LAST:event_associarButtonActionPerformed
 
