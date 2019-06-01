@@ -19,17 +19,16 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
         this.fachada = fachada;
         this.preencherTable();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     private void preencherTable() {
         DefaultTableModel model = (DefaultTableModel) alunosTable.getModel();
         Object rowData[] = new Object[7];
         ArrayList<Aluno> alunos = this.turma.getAlunos();
-        if(!alunos.isEmpty()) {
+        if (!alunos.isEmpty()) {
             ArrayList<RendimentoEscolar> rendimento = new ArrayList();
-            float nota1 = 0, nota2 = 0;
-            String[] trabalhos = null;
-            float[] notaTrabalhos = null;
+
             try {
                 rendimento = this.fachada.exibirNotasProfessor(this.turma.getId());
             } catch (SemAlunoMatriculadoException e) {
@@ -37,24 +36,35 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
             }
             for (int i = 0; i < alunos.size(); i++) {
                 rowData[0] = alunos.get(i).getNome();
-                for(int j = 0; j < rendimento.size(); j++) {
-                    if(rendimento.get(j).getAluno().getId() == alunos.get(i).getId()) {
+                float nota1 = 0, nota2 = 0;
+                String[] trabalhos = null;
+                float[] notaTrabalhos = null;
+                for (int j = 0; j < rendimento.size(); j++) {
+                    if (rendimento.get(j).getAluno().getId() == alunos.get(i).getId()) {
                         nota1 = rendimento.get(j).getNota1();
                         nota2 = rendimento.get(j).getNota2();
                         trabalhos = rendimento.get(j).getTrabalhos();
                         notaTrabalhos = rendimento.get(j).getNotaTrabalhos();
+                        break;
                     }
                 }
                 rowData[1] = nota1;
                 rowData[2] = nota2;
                 int cont = 3;
-                for(int k = 0; k < 4; k++) {
-                    if(trabalhos[k] != null) {
-                        rowData[cont] = trabalhos[k] + " - " + notaTrabalhos[k];
-                    } else {
-                        rowData[cont] = "-";
+                if (trabalhos != null) {
+                    for (int k = 0; k < 4; k++) {
+                        if (trabalhos[k] != null) {
+                            rowData[cont] = trabalhos[k] + " - " + notaTrabalhos[k];
+                        } else {
+                            rowData[cont] = "-";
+                        }
+                        cont++;
                     }
-                    cont++;
+                } else {
+                    for (int k = 0; k < 4; k++) {
+                        rowData[cont] = "-";
+                        cont++;
+                    }
                 }
                 model.addRow(rowData);
             }
@@ -170,7 +180,7 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
         float nota1, nota2;
         String[] trabalhos = new String[4];
         float[] notaTrabalhos = new float[4];
-                
+
         for (int i = 0; i < quantRow; i++) {
             nome = model.getValueAt(i, 0).toString();
             nota1 = Float.parseFloat(model.getValueAt(i, 1).toString());
@@ -187,10 +197,11 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
             try {
                 this.fachada.atualizarNotasProfessor(this.turma.getId(), alunos.get(i).getId(), nota1, nota2);
                 this.fachada.atualizarNotasTrabalhosProfessor(this.turma.getId(), alunos.get(i).getId(), notaTrabalhos);
-            } catch(NotaInvalidaException e) {
+            } catch (NotaInvalidaException e) {
                 JOptionPane.showConfirmDialog(null, e.getMessage());
             }
         }
+        model.setRowCount(0);
         this.preencherTable();
     }//GEN-LAST:event_salvarButtonActionPerformed
 
@@ -198,7 +209,7 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
         TelaProfessorDetalhesTurmaMedias medias = null;
         try {
             medias = new TelaProfessorDetalhesTurmaMedias(this.fachada.exibirNotasProfessor(this.turma.getId()));
-        } catch(SemAlunoMatriculadoException e) {
+        } catch (SemAlunoMatriculadoException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
         }
         medias.setVisible(true);

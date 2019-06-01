@@ -21,8 +21,10 @@ public class TelaProfessor extends javax.swing.JFrame {
         this.fachada = fachada;
         setLocationRelativeTo(null);
         this.pegarTurmas();
-        this.preencherBox();
-        this.preencherTable();
+        if (this.turmas != null) {
+            this.preencherBox();
+            this.preencherTable();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -35,6 +37,7 @@ public class TelaProfessor extends javax.swing.JFrame {
         turmasBox = new javax.swing.JComboBox<>();
         detalhesButton = new javax.swing.JButton();
         turmasDispButton = new javax.swing.JButton();
+        atualizarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,35 +81,50 @@ public class TelaProfessor extends javax.swing.JFrame {
             }
         });
 
+        atualizarButton.setText("Atualizar");
+        atualizarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(turmasBox, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(detalhesButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(turmasDispButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(163, 163, 163)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(atualizarButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(turmasBox, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(detalhesButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(turmasDispButton)))))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(atualizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(turmasBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(detalhesButton)
@@ -127,25 +145,21 @@ public class TelaProfessor extends javax.swing.JFrame {
     }
 
     private void preencherBox() {
-        if(this.turmas != null) {
-            String[] turmasString = new String[this.turmas.size()];
-            for (int i = 0; i < this.turmas.size(); i++) {
-                turmasString[i] = this.turmas.get(i).toString();
-            }
-            DefaultComboBoxModel model = new DefaultComboBoxModel(turmasString);
-            this.turmasBox.setModel(model);
+        String[] turmasString = new String[this.turmas.size()];
+        for (int i = 0; i < this.turmas.size(); i++) {
+            turmasString[i] = this.turmas.get(i).toString();
         }
+        DefaultComboBoxModel model = new DefaultComboBoxModel(turmasString);
+        this.turmasBox.setModel(model);
     }
 
     private void preencherTable() {
-        if(this.turmas != null) {
-            DefaultTableModel model = (DefaultTableModel) turmasTable.getModel();
-            Object rowData[] = new Object[2];
-            for (int i = 0; i < this.turmas.size(); i++) {
-                rowData[0] = this.turmas.get(i).getId();
-                rowData[1] = this.turmas.get(i).getDisciplina().getNome();
-                model.addRow(rowData);
-            }
+        DefaultTableModel model = (DefaultTableModel) turmasTable.getModel();
+        Object rowData[] = new Object[2];
+        for (int i = 0; i < this.turmas.size(); i++) {
+            rowData[0] = this.turmas.get(i).getId();
+            rowData[1] = this.turmas.get(i).getDisciplina().getNome();
+            model.addRow(rowData);
         }
     }
 
@@ -169,8 +183,18 @@ public class TelaProfessor extends javax.swing.JFrame {
         disponiveis.setVisible(true);
         disponiveis.setResizable(false);
     }//GEN-LAST:event_turmasDispButtonActionPerformed
-    
+
+    private void atualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarButtonActionPerformed
+        DefaultComboBoxModel modelBox = (DefaultComboBoxModel) turmasBox.getModel();
+        modelBox.removeAllElements();
+        DefaultTableModel modelTable = (DefaultTableModel) turmasTable.getModel();
+        modelTable.setRowCount(0);
+        this.preencherBox();
+        this.preencherTable();
+    }//GEN-LAST:event_atualizarButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton atualizarButton;
     private javax.swing.JButton detalhesButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

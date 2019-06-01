@@ -13,6 +13,7 @@ public class TelaProfessorDetalhesTurmaMedias extends javax.swing.JFrame {
         this.rendimentos = rendimentos;
         this.preencher();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
     
     private void preencher() {
@@ -45,11 +46,14 @@ public class TelaProfessorDetalhesTurmaMedias extends javax.swing.JFrame {
             model.addRow(rowData);
         }
         
-        this.aprovadoField.setText(quantAprovado + "(" + 100*(quantAprovado/this.rendimentos.size()) + "%)");
+        float porcAprovado = (100 * quantAprovado / this.rendimentos.size());
+        float porcFinal = (100 * quantFinal / this.rendimentos.size());
+        float porcReprovado = (100 * quantReprovado / this.rendimentos.size());
+        this.aprovadoField.setText(quantAprovado + "(" + porcAprovado + "%)");
         this.aprovadoField.setEditable(false);
-        this.finalField.setText(quantFinal + "(" + 100*(quantFinal/this.rendimentos.size()) + "%)");
+        this.finalField.setText(quantFinal + "(" + porcFinal + "%)");
         this.finalField.setEditable(false);
-        this.reprovadoField.setText(quantReprovado + "(" + 100*(quantReprovado/this.rendimentos.size()) + "%)");
+        this.reprovadoField.setText(quantReprovado + "(" + porcReprovado + "%)");
         this.reprovadoField.setEditable(false);
     }
 
