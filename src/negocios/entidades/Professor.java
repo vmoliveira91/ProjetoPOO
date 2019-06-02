@@ -1,13 +1,13 @@
 package negocios.entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Professor {
 
     private int id;
     private String nome;
     private String cargo;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private String login;
     private String senha;
 
@@ -15,7 +15,10 @@ public class Professor {
         this.id = id;
         this.nome = nome;
         this.cargo = cargo;
-        this.dataNascimento = new Date(ano, mes, dia);
+        if(ano != 0)
+            this.dataNascimento = LocalDate.of(ano, mes, dia);
+        else
+            this.dataNascimento = null;
         this.login = login;
         this.senha = senha;
     }
@@ -44,11 +47,11 @@ public class Professor {
         this.cargo = cargo;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

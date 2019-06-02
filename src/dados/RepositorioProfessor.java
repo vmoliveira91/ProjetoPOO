@@ -3,11 +3,10 @@ package dados;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import negocios.entidades.*;
 import negocios.excecoes.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class RepositorioProfessor implements IRepositorioProfessor {
@@ -48,10 +47,11 @@ public class RepositorioProfessor implements IRepositorioProfessor {
             senhaConsultado = resultSet.getString("senha");
             dataParaBanco = resultSet.getString("data_nascimento");
             cargoConsultado = resultSet.getString("cargo");
-
-            diaConsultado = Integer.parseInt(dataParaBanco.substring(0, 2));
-            mesConsultado = Integer.parseInt(dataParaBanco.substring(3, 5));
-            anoConsultado = Integer.parseInt(dataParaBanco.substring(6));
+            
+            String[] data = dataParaBanco.split("/");
+            diaConsultado = Integer.parseInt(data[0]);
+            mesConsultado = Integer.parseInt(data[1]);
+            anoConsultado = Integer.parseInt(data[2]);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -78,27 +78,40 @@ public class RepositorioProfessor implements IRepositorioProfessor {
     @Override
     public boolean cadastrarProfessor(Professor professor) throws UsuarioJaCadastradoException {
         this.conexao.conectar();
-        ResultSet resultSet = null;
+        String login = professor.getLogin();
+
+        ResultSet resultSelect1 = null;
+        ResultSet resultSelect2 = null;
+
         Statement statement = null;
 
-        String sqlInsert = "INSERT INTO professor(cargo,data_nascimento,senha, nome_usuario, nome) "
-                + "VALUES('" + professor.getCargo() + "','11/02/1987','" + professor.getSenha() + "','" + professor.getLogin() + "','" + professor.getNome() + "');";
+        String sqlSelect1 = "select * from professor where nome_usuario = '" + login + "';";
+        String sqlSelect2 = "select * from aluno where nome_usuario = '" + login + "';";
 
         statement = this.conexao.criarStatement();
-        try {
-            resultSet = statement.executeQuery(sqlInsert);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw new UsuarioJaCadastradoException("Usuário já cadastrado!");
 
-        } finally {
-            try {
-                resultSet.close();
+        try {
+            resultSelect1 = statement.executeQuery(sqlSelect1);
+            resultSelect2 = statement.executeQuery(sqlSelect2);
+            
+            if (!resultSelect1.next() && !resultSelect2.next()) {
+                LocalDate data = professor.getDataNascimento();
+                String dataStr = data.getDayOfMonth() + "/" + data.getMonthValue() + "/" + data.getYear();
+
+                String sqlInsert = "insert into professor(nome, nome_usuario, senha, data_nascimento, cargo) "
+                        + "values('" + professor.getNome() + "', '" + professor.getLogin() + "', '" + professor.getSenha()
+                        + "', '" + dataStr + "', '" + professor.getCargo() + "');";
+
+                statement.executeUpdate(sqlInsert);
                 statement.close();
                 this.conexao.desconectar();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                
+                JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
+            } else {
+                throw new UsuarioJaCadastradoException("Usuário já cadastrado!");
             }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
 
         return true;
@@ -112,16 +125,16 @@ public class RepositorioProfessor implements IRepositorioProfessor {
         Statement statement = null;
 
         ArrayList<Turma> turma = new ArrayList<Turma>();
-        
-        String sqlSelect = "select distinct t.id as id, t.capacidade_turma as cap, t.id_disciplina as discId, d.nome as discNome from turma as t\n" +
-                "inner join disciplina as d on t.id_disciplina = d.id\n" +
-                "where t.id_professor = " + professorId + ";";
+
+        String sqlSelect = "select distinct t.id as id, t.capacidade_turma as cap, t.id_disciplina as discId, d.nome as discNome from turma as t\n"
+                + "inner join disciplina as d on t.id_disciplina = d.id\n"
+                + "where t.id_professor = " + professorId + ";";
 
         statement = this.conexao.criarStatement();
 
         try {
             resultSet = statement.executeQuery(sqlSelect);
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 int turmaId = resultSet.getInt("id");
                 int turmaCapacidade = resultSet.getInt("cap");
                 int disciplinaId = resultSet.getInt("discId");
@@ -154,7 +167,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
         this.conexao.conectar();
 
         ArrayList<RendimentoEscolar> rendimentos = new ArrayList();
-        
+
         ResultSet resultSet = null;
         Statement statement = null;
 
@@ -168,7 +181,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
 
         try {
             resultSet = statement.executeQuery(sqlSelect);
-            
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 turmaId = resultSet.getInt("turmaId");
@@ -226,7 +239,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
             } else {
                 String sqlUpdate = "UPDATE rendimentoescolar SET nota1prova = " + nota1 + ", nota2prova = " + nota2 + " "
                         + "WHERE id_aluno = " + alunoId + " AND id_turma= " + turmaId + ";";
-                
+
                 statement.executeUpdate(sqlUpdate);
             }
 
@@ -322,12 +335,12 @@ public class RepositorioProfessor implements IRepositorioProfessor {
         this.conexao.conectar();
         ResultSet resultSet = null;
         Statement statement = null;
-        
+
         String sqlUpdate = "update turma set id_professor = " + professor.getId() + " "
                 + "where id = " + turmaId + ";";
-        
+
         statement = this.conexao.criarStatement();
-        
+
         try {
             statement.executeUpdate(sqlUpdate);
         } catch (SQLException ex) {
@@ -341,7 +354,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
                 System.out.println(ex.getMessage());
             }
         }
-        
+
         return true;
     }
 

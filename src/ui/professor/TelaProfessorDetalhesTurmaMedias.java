@@ -24,8 +24,8 @@ public class TelaProfessorDetalhesTurmaMedias extends javax.swing.JFrame {
         for(int i = 0; i < this.rendimentos.size(); i++) {
             rowData[0] = this.rendimentos.get(i).getAluno().getNome();
             float[] notaTrabalhos = this.rendimentos.get(i).getNotaTrabalhos();
-            float nota1 = this.rendimentos.get(i).getNota1() + ((notaTrabalhos[0] + notaTrabalhos[1])/2)*(10/100);
-            float nota2 = this.rendimentos.get(i).getNota2() + ((notaTrabalhos[2] + notaTrabalhos[3])/2)*(10/100);
+            float nota1 = (float) (this.rendimentos.get(i).getNota1() + (float) ((notaTrabalhos[0] + notaTrabalhos[1])/2.0)*(0.1));
+            float nota2 = (float) (this.rendimentos.get(i).getNota2() + (float) ((notaTrabalhos[2] + notaTrabalhos[3])/2.0)*(0.1));
             nota1 = nota1 > 10 ? 10 : nota1;
             nota2 = nota2 > 10 ? 10 : nota2;
             float media = (nota1 + nota2)/2;
