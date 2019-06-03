@@ -1,10 +1,10 @@
 package ui.aluno;
 
-import negocios.Fachada;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import negocios.Fachada;
 import negocios.entidades.Aluno;
 import negocios.entidades.Turma;
 import negocios.excecoes.SemTurmaCadastradaException;
@@ -22,8 +22,12 @@ public class TelaAlunoTurmasDisponiveis extends javax.swing.JFrame {
         this.aluno = aluno;
         this.fachada = fachada;
         this.pegarTurmas();
-        this.preencherBox();
-        this.preencherTable();
+        if(this.turmas != null) {
+            this.preencherBox();
+            this.preencherTable();
+        } else {
+            this.matricularButton.setEnabled(false);
+        }
     }
 
     @SuppressWarnings("unchecked")

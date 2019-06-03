@@ -22,7 +22,6 @@ public class TelaProfessorTurmasDisponiveis extends javax.swing.JFrame {
         this.professor = professor;
         this.fachada = fachada;
         this.pegarTurmas();
-        //if (!this.turmas.isEmpty()) {
         if(this.turmas != null) {
             this.preencherBox();
             this.preencherTable();

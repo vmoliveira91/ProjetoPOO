@@ -199,20 +199,27 @@ public class RepositorioAluno implements IRepositorioAluno {
             rendimento = new RendimentoEscolar(null, null, nota1, nota2, trabalhos, notaTrabalhos);
         } catch(SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                this.conexao.desconectar();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         return rendimento;
     }
 
     @Override
     public boolean adicionarTrabalho(int turmaId, int alunoId, String[] trabalhoNovo) {
-        
         this.conexao.conectar();
         
         Statement statement = null;
         
         String sqlUpdate = "update rendimentoescolar set trabalho1 = '" + trabalhoNovo[0] + "', trabalho2 = '" + trabalhoNovo[1] + "', "
-                + "trabalho3 = '" + trabalhoNovo[2] + "', trabalho4 = '" + trabalhoNovo[4] + "'\n"
-                + "where id_turma = " + turmaId + "and id_aluno = " + alunoId + ";";
+                + "trabalho3 = '" + trabalhoNovo[2] + "', trabalho4 = '" + trabalhoNovo[3] + "'\n"
+                + "where id_turma = " + turmaId + " and id_aluno = " + alunoId + ";";
         
         statement = this.conexao.criarStatement();
         
@@ -233,7 +240,51 @@ public class RepositorioAluno implements IRepositorioAluno {
 
     @Override
     public ArrayList<Turma> exibirListagemTurmasDisponiveisAluno(int alunoId) throws SemTurmaCadastradaException {
-        return null;
+        this.conexao.conectar();
+        
+        ResultSet resultSet = null;
+        Statement statement = null;
+
+        ArrayList<Turma> turma = new ArrayList<Turma>();
+        
+        String sqlSelect = "select distinct at.id_turma as id, t.capacidade_turma as cap, t.id_disciplina as discId, d.nome as discNome,\n"
+                + "p.nome as profNome from alunos_na_turma as at\n"
+                + "inner join turma as t on at.id_turma = t.id\n"
+                + "inner join disciplina as d on t.id_disciplina = d.id\n"
+                + "left join professor as p on t.id_professor = p.id\n"
+                + "where at.id_aluno <> " + alunoId + ";";
+
+        statement = this.conexao.criarStatement();
+
+        try {
+            resultSet = statement.executeQuery(sqlSelect);
+            while (resultSet.next()) {
+                int turmaId = resultSet.getInt("id");
+                int turmaCapacidade = resultSet.getInt("cap");
+                int disciplinaId = resultSet.getInt("discId");
+                String disciplinaNome = resultSet.getString("discNome");
+                String professorNome = resultSet.getString("profNome");
+
+                Disciplina disciplina = new Disciplina(disciplinaId, disciplinaNome, "");
+                Professor professor = new Professor(0, professorNome, "", 0, 0, 0, "", "");
+
+                turma.add(new Turma(turmaId, disciplina, professor, turmaCapacidade, null));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                this.conexao.desconectar();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        if (turma.isEmpty()) {
+            throw new SemTurmaCadastradaException("Sem turma cadastrada!");
+        }
+        return turma;
     }
 
     @Override

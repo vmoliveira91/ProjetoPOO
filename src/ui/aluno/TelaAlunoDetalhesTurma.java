@@ -301,8 +301,9 @@ public class TelaAlunoDetalhesTurma extends javax.swing.JFrame {
         trabalhos[1] = trabalho2Field.getText();
         trabalhos[2] = trabalho3Field.getText();
         trabalhos[3] = trabalho4Field.getText();
-        this.fachada.adicionarTrabalho(this.turma.getId(), this.aluno.getId(), trabalhos);
-        JOptionPane.showMessageDialog(null, "Trabalho(s) adicionado(s) com sucesso!");
+        if (this.fachada.adicionarTrabalho(this.turma.getId(), this.aluno.getId(), trabalhos)) {
+            JOptionPane.showMessageDialog(null, "Trabalho(s) adicionado(s) com sucesso!");
+        }
         dispose();
     }//GEN-LAST:event_adicionarButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
