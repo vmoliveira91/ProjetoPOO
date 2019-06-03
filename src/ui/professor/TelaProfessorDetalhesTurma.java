@@ -165,7 +165,6 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
         DefaultTableModel model = (DefaultTableModel) alunosTable.getModel();
-        //ArrayList<Aluno> alunos = this.turma.getAlunos();
         int quantRow = model.getRowCount();
         String nome, trabalho;
         int cont;
@@ -191,7 +190,7 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
                 this.fachada.atualizarNotasTrabalhosProfessor(this.turma.getId(), this.rendimento.get(i).getAluno().getId(), notaTrabalhos);
                 this.pegarAlunos();
             } catch (NotaInvalidaException e) {
-                JOptionPane.showConfirmDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
         model.setRowCount(0);
@@ -203,7 +202,7 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
         try {
             medias = new TelaProfessorDetalhesTurmaMedias(this.fachada.exibirNotasProfessor(this.turma.getId()));
         } catch (SemAlunoMatriculadoException e) {
-            JOptionPane.showConfirmDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         medias.setVisible(true);
         medias.setResizable(false);

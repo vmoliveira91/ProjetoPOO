@@ -134,14 +134,16 @@ public class TelaLogin extends javax.swing.JFrame {
             administrador.setResizable(false);
             //}
         } else if (jComboBox1.getSelectedItem().equals("Aluno")) {
-            //this.aluno = fachada.logarAluno(jTextField1.getText(), jTextField2.getText());
-            // TODO - chamar nova tela
-            //if (this.aluno != null) {
-            TelaAluno telaAluno = new TelaAluno(aluno, fachada);
-            telaAluno.setVisible(true);
-            telaAluno.setResizable(false);
-            //}
-
+            try {
+                this.aluno = fachada.logarAluno(jTextField1.getText(), jTextField2.getText());
+                TelaAluno telaAluno = new TelaAluno(aluno, fachada);
+                telaAluno.setVisible(true);
+                telaAluno.setResizable(false);
+            } catch(UsuarioNaoCadastradoException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } catch(SenhaInvalidaException e2) {
+                JOptionPane.showMessageDialog(null, e2.getMessage());
+            }
         } else if (jComboBox1.getSelectedItem().equals("Professor")) {
             try {
                 this.professor = fachada.logarProfessor(jTextField1.getText(), jTextField2.getText());
@@ -153,7 +155,6 @@ public class TelaLogin extends javax.swing.JFrame {
             } catch (SenhaInvalidaException e2) {
                 JOptionPane.showMessageDialog(null, e2.getMessage());
             }
-
         }
     }//GEN-LAST:event_entrarButtonActionPerformed
 

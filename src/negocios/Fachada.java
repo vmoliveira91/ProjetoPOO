@@ -129,12 +129,12 @@ public class Fachada implements IFachadaAdministrador, IFachadaAluno, IFachadaPr
     }
 
     @Override
-    public RendimentoEscolar exibirNotasAluno(int turmaId, int alunoId) throws SemAlunoMatriculadoException {
+    public RendimentoEscolar exibirNotasAluno(int turmaId, int alunoId) {
         return this.controladorAluno.exibirNotasAluno(turmaId, alunoId);
     }
 
     @Override
-    public boolean adicionarTrabalho(int turmaId, int alunoId, String[] trabalhoNovo) throws SemEspacoParaNovoTrabalhoException {
+    public boolean adicionarTrabalho(int turmaId, int alunoId, String[] trabalhoNovo) {
         return this.controladorAluno.adicionarTrabalho(turmaId, alunoId, trabalhoNovo);
     }
 

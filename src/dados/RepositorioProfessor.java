@@ -34,7 +34,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
 
         ResultSet resultSet = null;
         Statement statement = null;
-        String sqlSelectLogin = "SELECT * FROM PROFESSOR WHERE nome_usuario = '" + login + "';";
+        String sqlSelectLogin = "select * from professor where nome_usuario = '" + login + "';";
 
         statement = this.conexao.criarStatement();
         try {
@@ -47,7 +47,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
             senhaConsultado = resultSet.getString("senha");
             dataParaBanco = resultSet.getString("data_nascimento");
             cargoConsultado = resultSet.getString("cargo");
-            
+
             String[] data = dataParaBanco.split("/");
             diaConsultado = Integer.parseInt(data[0]);
             mesConsultado = Integer.parseInt(data[1]);
@@ -93,7 +93,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
         try {
             resultSelect1 = statement.executeQuery(sqlSelect1);
             resultSelect2 = statement.executeQuery(sqlSelect2);
-            
+
             if (!resultSelect1.next() && !resultSelect2.next()) {
                 LocalDate data = professor.getDataNascimento();
                 String dataStr = data.getDayOfMonth() + "/" + data.getMonthValue() + "/" + data.getYear();
@@ -105,7 +105,6 @@ public class RepositorioProfessor implements IRepositorioProfessor {
                 statement.executeUpdate(sqlInsert);
                 statement.close();
                 this.conexao.desconectar();
-                
                 JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
             } else {
                 throw new UsuarioJaCadastradoException("Usuário já cadastrado!");
@@ -224,10 +223,10 @@ public class RepositorioProfessor implements IRepositorioProfessor {
             throw new NotaInvalidaException("Nota inválida!");
         }
 
-        statement = this.conexao.criarStatement();
-
         String sqlSelect = "select id_aluno from rendimentoescolar where id_aluno = " + alunoId + ";";
 
+        statement = this.conexao.criarStatement();
+        
         try {
             resultSet = statement.executeQuery(sqlSelect);
 
@@ -259,7 +258,6 @@ public class RepositorioProfessor implements IRepositorioProfessor {
     @Override
     public boolean atualizarNotasTrabalhosProfessor(int turmaId, int alunoId, float[] notaTrabalhos) throws NotaInvalidaException {
         this.conexao.conectar();
-        ResultSet resultSet = null;
         Statement statement = null;
 
         for (int i = 0; i < 4; i++) {
@@ -347,7 +345,6 @@ public class RepositorioProfessor implements IRepositorioProfessor {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         } finally {
             try {
-                //resultSet.close();
                 statement.close();
                 this.conexao.desconectar();
             } catch (SQLException ex) {

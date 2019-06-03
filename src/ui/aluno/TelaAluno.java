@@ -1,11 +1,12 @@
 package ui.aluno;
 
-import negocios.Fachada;
-import negocios.entidades.*;
-import javax.swing.DefaultComboBoxModel;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import negocios.Fachada;
+import negocios.entidades.Aluno;
+import negocios.entidades.Turma;
 import negocios.excecoes.SemTurmaCadastradaException;
 
 public class TelaAluno extends javax.swing.JFrame {
@@ -17,12 +18,14 @@ public class TelaAluno extends javax.swing.JFrame {
     public TelaAluno(Aluno aluno, Fachada fachada) {
         initComponents();
         setLocationRelativeTo(null);
-        this.fachada = fachada;
         this.aluno = aluno;
+        this.fachada = fachada;
         this.alunoLabel.setText("Bem-vindo, " + this.aluno.getNome());
         this.pegarTurmas();
-        this.preencherBox();
-        this.preencherTable();
+        if (this.turmas != null) {
+            this.preencherBox();
+            this.preencherTable();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -83,8 +86,6 @@ public class TelaAluno extends javax.swing.JFrame {
                 turmasDispButtonActionPerformed(evt);
             }
         });
-
-        turmasBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Turma1", "turma2", "turma3", "turma4" }));
 
         detalhesButton.setText("Ver detalhes");
         detalhesButton.addActionListener(new java.awt.event.ActionListener() {
@@ -149,28 +150,29 @@ public class TelaAluno extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void pegarTurmas() {
         try {
             this.turmas = this.fachada.exibirTurmasAluno(this.aluno.getId());
-        } catch(SemTurmaCadastradaException e) {
+        } catch (SemTurmaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            this.detalhesButton.setEnabled(false);
         }
     }
-    
+
     private void preencherBox() {
         String[] turmasString = new String[this.turmas.size()];
-        for(int i = 0; i < this.turmas.size(); i++) {
+        for (int i = 0; i < this.turmas.size(); i++) {
             turmasString[i] = this.turmas.get(i).toString();
         }
         DefaultComboBoxModel model = new DefaultComboBoxModel(turmasString);
         this.turmasBox.setModel(model);
     }
-    
+
     private void preencherTable() {
         DefaultTableModel model = (DefaultTableModel) turmasTable.getModel();
         Object rowData[] = new Object[3];
-        for(int i = 0; i < this.turmas.size(); i++) {
+        for (int i = 0; i < this.turmas.size(); i++) {
             rowData[0] = this.turmas.get(i).getId();
             rowData[1] = this.turmas.get(i).getDisciplina().getNome();
             rowData[2] = this.turmas.get(i).getProfessor().getNome();
@@ -189,55 +191,30 @@ public class TelaAluno extends javax.swing.JFrame {
         String[] dadosTurma = turmaString.split(" ");
         int turmaId = Integer.parseInt(dadosTurma[0]);
         Turma turma = null;
-        for(int i = 0; i < this.turmas.size(); i++) {
-            if(this.turmas.get(i).getId() == turmaId) {
+        for (int i = 0; i < this.turmas.size(); i++) {
+            if (this.turmas.get(i).getId() == turmaId) {
                 turma = this.turmas.get(i);
             }
-        }        
+        }
         TelaAlunoDetalhesTurma detalhes = new TelaAlunoDetalhesTurma(turma, aluno, fachada);
         detalhes.setVisible(true);
         detalhes.setResizable(false);
     }//GEN-LAST:event_detalhesButtonActionPerformed
 
     private void atualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarButtonActionPerformed
+        DefaultComboBoxModel modelBox = (DefaultComboBoxModel) turmasBox.getModel();
+        modelBox.removeAllElements();
+        DefaultTableModel modelTable = (DefaultTableModel) turmasTable.getModel();
+        modelTable.setRowCount(0);
         this.pegarTurmas();
-        this.preencherTable();
-    }//GEN-LAST:event_atualizarButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+        if (this.turmas != null) {
+            this.preencherBox();
+            this.preencherTable();
+            if (!this.detalhesButton.isEnabled()) {
+                this.detalhesButton.setEnabled(true);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new TelaAluno(aluno).setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_atualizarButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alunoLabel;

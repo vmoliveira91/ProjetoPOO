@@ -5,8 +5,6 @@ import javax.swing.JOptionPane;
 import negocios.entidades.Aluno;
 import negocios.entidades.RendimentoEscolar;
 import negocios.entidades.Turma;
-import negocios.excecoes.SemAlunoMatriculadoException;
-import negocios.excecoes.SemEspacoParaNovoTrabalhoException;
 
 public class TelaAlunoDetalhesTurma extends javax.swing.JFrame {
 
@@ -20,8 +18,10 @@ public class TelaAlunoDetalhesTurma extends javax.swing.JFrame {
         this.turma = turma;
         this.aluno = aluno;
         this.fachada = fachada;
-        this.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        this.pegarNotas();
+        this.preencher();
         setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     private void preencher() {
@@ -71,7 +71,7 @@ public class TelaAlunoDetalhesTurma extends javax.swing.JFrame {
             this.notaTrabalho3Field.setEditable(false);
         }
         // Quarto trabalho
-        if(!trabalhos[3].equals("")) {
+        if (!trabalhos[3].equals("")) {
             this.trabalho4Field.setText(trabalhos[3]);
             this.trabalho4Field.setEditable(false);
             this.notaTrabalho4Field.setText(notaTrabalhos[3] + "");
@@ -84,11 +84,7 @@ public class TelaAlunoDetalhesTurma extends javax.swing.JFrame {
     }
 
     private void pegarNotas() {
-        try {
-            this.rendimento = this.fachada.exibirNotasAluno(this.turma.getId(), this.aluno.getId());
-        } catch (SemAlunoMatriculadoException e) {
-            JOptionPane.showConfirmDialog(null, e.getMessage());
-        }
+        this.rendimento = this.fachada.exibirNotasAluno(this.turma.getId(), this.aluno.getId());
     }
 
     @SuppressWarnings("unchecked")
@@ -305,50 +301,10 @@ public class TelaAlunoDetalhesTurma extends javax.swing.JFrame {
         trabalhos[1] = trabalho2Field.getText();
         trabalhos[2] = trabalho3Field.getText();
         trabalhos[3] = trabalho4Field.getText();
-        try {
-            if(this.fachada.adicionarTrabalho(this.turma.getId(), this.aluno.getId(), trabalhos))
-                JOptionPane.showConfirmDialog(null, "Trabalho(s) adicionado(s) com sucesso!");
-        } catch(SemEspacoParaNovoTrabalhoException e) {
-            JOptionPane.showConfirmDialog(null, "Trabalho(s) não adicionado(s)!");
-        }
+        this.fachada.adicionarTrabalho(this.turma.getId(), this.aluno.getId(), trabalhos);
+        JOptionPane.showMessageDialog(null, "Trabalho(s) adicionado(s) com sucesso!");
+        dispose();
     }//GEN-LAST:event_adicionarButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAlunoDetalhesTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAlunoDetalhesTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAlunoDetalhesTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAlunoDetalhesTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new TelaAlunoDetalhesTurma().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionarButton;
     private javax.swing.JTextField disciplinaField;

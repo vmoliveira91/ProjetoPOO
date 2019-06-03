@@ -1,12 +1,12 @@
 package negocios.entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Aluno {
 
     private int id;
     private String nome;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private int periodo;
     private String login;
     private String senha;
@@ -14,7 +14,10 @@ public class Aluno {
     public Aluno(int id, String nome, int dia, int mes, int ano, int periodo, String login, String senha) {
         this.id = id;
         this.nome = nome;
-        this.dataNascimento = new Date(ano, mes, dia);
+        if(ano != 0)
+            this.dataNascimento = LocalDate.of(ano, mes, dia);
+        else
+            this.dataNascimento = null;
         this.periodo = periodo;
         this.login = login;
         this.senha = senha;
@@ -36,11 +39,11 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

@@ -33,11 +33,11 @@ public class ControladorAluno {
         return this.rep.exibirTurmasAluno(alunoId);
     }
 
-    public RendimentoEscolar exibirNotasAluno(int turmaId, int alunoId) throws SemAlunoMatriculadoException {
+    public RendimentoEscolar exibirNotasAluno(int turmaId, int alunoId) {
         return this.rep.exibirNotasAluno(turmaId, alunoId);
     }
 
-    public boolean adicionarTrabalho(int turmaId, int alunoId, String[] trabalhoNovo) throws SemEspacoParaNovoTrabalhoException {
+    public boolean adicionarTrabalho(int turmaId, int alunoId, String[] trabalhoNovo) {
         return this.rep.adicionarTrabalho(turmaId, alunoId, trabalhoNovo);
     }
 

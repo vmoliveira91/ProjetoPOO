@@ -34,7 +34,6 @@ public class TelaProfessorTurmasDisponiveis extends javax.swing.JFrame {
     private void pegarTurmas() {
         try {
             this.turmas = this.fachada.exibirListagemTurmasDisponiveisProfessor(this.professor.getId());
-            System.out.println(this.turmas.size());
         } catch (SemTurmaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -145,6 +144,7 @@ public class TelaProfessorTurmasDisponiveis extends javax.swing.JFrame {
         int turmaId = Integer.parseInt(dadosTurma[0]);
         if (this.fachada.associarTurmaProfessor(professor, turmaId)) {
             JOptionPane.showMessageDialog(null, "Professor associado a turma com sucesso!");
+            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Professor não associado a turma!");
         }

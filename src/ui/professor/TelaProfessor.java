@@ -17,9 +17,9 @@ public class TelaProfessor extends javax.swing.JFrame {
 
     public TelaProfessor(Professor professor, Fachada fachada) {
         initComponents();
+        setLocationRelativeTo(null);
         this.professor = professor;
         this.fachada = fachada;
-        setLocationRelativeTo(null);
         this.pegarTurmas();
         if (this.turmas != null) {
             this.preencherBox();
@@ -190,8 +190,13 @@ public class TelaProfessor extends javax.swing.JFrame {
         DefaultTableModel modelTable = (DefaultTableModel) turmasTable.getModel();
         modelTable.setRowCount(0);
         this.pegarTurmas();
-        this.preencherBox();
-        this.preencherTable();
+        if (this.turmas != null) {
+            this.preencherBox();
+            this.preencherTable();
+            if (!this.detalhesButton.isEnabled()) {
+                this.detalhesButton.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_atualizarButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
