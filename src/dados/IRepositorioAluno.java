@@ -18,5 +18,5 @@ public interface IRepositorioAluno {
 
     public ArrayList<Turma> exibirListagemTurmasDisponiveisAluno(int alunoId) throws SemTurmaCadastradaException;
 
-    public boolean associarTurmaAluno(Aluno aluno, int turmaId);
+    public boolean associarTurmaAluno(Aluno aluno, int turmaId, int capacidadeTurma) throws TurmaLotadaException;
 }

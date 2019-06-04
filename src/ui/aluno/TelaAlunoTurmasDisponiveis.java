@@ -1,6 +1,8 @@
 package ui.aluno;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -8,6 +10,7 @@ import negocios.Fachada;
 import negocios.entidades.Aluno;
 import negocios.entidades.Turma;
 import negocios.excecoes.SemTurmaCadastradaException;
+import negocios.excecoes.TurmaLotadaException;
 
 public class TelaAlunoTurmasDisponiveis extends javax.swing.JFrame {
     
@@ -150,47 +153,20 @@ public class TelaAlunoTurmasDisponiveis extends javax.swing.JFrame {
         String turma = this.turmasBox.getSelectedItem().toString();
         String[] dadosTurma = turma.split(" ");
         int turmaId = Integer.parseInt(dadosTurma[0]);
-        if(this.fachada.associarTurmaAluno(aluno, turmaId)){
-            JOptionPane.showConfirmDialog(null, "Aluno matriculado com sucesso!");
-        } else {
-            JOptionPane.showConfirmDialog(null, "Aluno não matriculado!");
+        int cap = 0;
+        for(int i = 0; i < this.turmas.size(); i++) {
+            if(this.turmas.get(i).getId() == turmaId) {
+                cap = this.turmas.get(i).getCapacidadaDaTurma();
+            }
+        }
+        try {
+            this.fachada.associarTurmaAluno(aluno, turmaId, cap);
+            JOptionPane.showMessageDialog(null, "Aluno matriculado com sucesso!");
+            dispose();
+        } catch (TurmaLotadaException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_matricularButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAlunoTurmasDisponiveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAlunoTurmasDisponiveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAlunoTurmasDisponiveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAlunoTurmasDisponiveis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-               //new TelaAlunoTurmasDisponiveis().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

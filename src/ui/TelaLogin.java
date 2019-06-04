@@ -114,9 +114,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
         if(jComboBox1.getSelectedItem().equals("Aluno")) {
-            /*TelaAlunoCadastrar cadastrarAluno = new TelaAlunoCadastrar(this.fachada);
+            TelaAlunoCadastrar cadastrarAluno = new TelaAlunoCadastrar(this.fachada);
             cadastrarAluno.setVisible(true);
-            cadastrarAluno.setResizable(false);*/
+            cadastrarAluno.setResizable(false);
         } else if(jComboBox1.getSelectedItem().equals("Professor")) {
             TelaProfessorCadastrar cadastrarProfessor = new TelaProfessorCadastrar(this.fachada);
             cadastrarProfessor.setVisible(true);

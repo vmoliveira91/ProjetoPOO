@@ -144,8 +144,8 @@ public class Fachada implements IFachadaAdministrador, IFachadaAluno, IFachadaPr
     }
 
     @Override
-    public boolean associarTurmaAluno(Aluno aluno, int turmaId) {
-        return this.controladorAluno.associarTurmaAluno(aluno, turmaId);
+    public boolean associarTurmaAluno(Aluno aluno, int turmaId, int capacidadeTurma) throws TurmaLotadaException {
+        return this.controladorAluno.associarTurmaAluno(aluno, turmaId, capacidadeTurma);
     }
 
     /*

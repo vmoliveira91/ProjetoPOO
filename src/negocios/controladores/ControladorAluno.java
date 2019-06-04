@@ -45,7 +45,7 @@ public class ControladorAluno {
         return this.rep.exibirListagemTurmasDisponiveisAluno(alunoId);
     }
 
-    public boolean associarTurmaAluno(Aluno aluno, int turmaId) {
-        return this.rep.associarTurmaAluno(aluno, turmaId);
+    public boolean associarTurmaAluno(Aluno aluno, int turmaId, int capacidadeTurma) throws TurmaLotadaException {
+        return this.rep.associarTurmaAluno(aluno, turmaId, capacidadeTurma);
     }
 }

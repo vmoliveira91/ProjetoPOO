@@ -216,32 +216,20 @@ public class RepositorioProfessor implements IRepositorioProfessor {
     @Override
     public boolean atualizarNotasProfessor(int turmaId, int alunoId, float nota1, float nota2) throws NotaInvalidaException {
         this.conexao.conectar();
-        ResultSet resultSet = null;
+        
         Statement statement = null;
 
         if (nota1 > 10 || nota1 < 0 || nota2 > 10 || nota2 < 0) {
             throw new NotaInvalidaException("Nota inválida!");
         }
 
-        String sqlSelect = "select id_aluno from rendimentoescolar where id_aluno = " + alunoId + ";";
+        String sqlUpdate = "UPDATE rendimentoescolar SET nota1prova = " + nota1 + ", nota2prova = " + nota2 + " "
+                        + "WHERE id_aluno = " + alunoId + " AND id_turma= " + turmaId + ";";
 
         statement = this.conexao.criarStatement();
         
         try {
-            resultSet = statement.executeQuery(sqlSelect);
-
-            if (!resultSet.next()) {
-                String sqlInsert = "insert into rendimentoescolar (id_turma, id_aluno, nota1prova, nota2prova) values "
-                        + "(" + turmaId + "," + alunoId + "," + nota1 + "," + nota2 + ");";
-
-                statement.executeUpdate(sqlInsert);
-            } else {
-                String sqlUpdate = "UPDATE rendimentoescolar SET nota1prova = " + nota1 + ", nota2prova = " + nota2 + " "
-                        + "WHERE id_aluno = " + alunoId + " AND id_turma= " + turmaId + ";";
-
-                statement.executeUpdate(sqlUpdate);
-            }
-
+            statement.executeUpdate(sqlUpdate);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -331,6 +319,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
     @Override
     public boolean associarTurmaProfessor(Professor professor, int turmaId) {
         this.conexao.conectar();
+        
         ResultSet resultSet = null;
         Statement statement = null;
 
