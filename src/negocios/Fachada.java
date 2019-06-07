@@ -161,42 +161,42 @@ public class Fachada implements IFachadaAdministrador, IFachadaAluno, IFachadaPr
     }
     
     @Override
-    public boolean cadastrarDisciplina(Disciplina disciplina) throws DisciplinaJaCadastradaException {
+    public boolean cadastrarDisciplina(Disciplina disciplina) {
         return this.controladorAdministrador.cadastrarDisciplina(disciplina);
     }
 
     @Override
-    public boolean removerDisciplina(int disciplinaId) throws DisciplinaNaoCadastradaException {
+    public boolean removerDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
         return this.controladorAdministrador.removerDisciplina(disciplinaId);
     }
 
     @Override
-    public Disciplina consultarDisciplina(int disciplinaId) throws DisciplinaNaoCadastradaException {
+    public Disciplina consultarDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
         return this.controladorAdministrador.consultarDisciplina(disciplinaId);
     }
 
     @Override
-    public ArrayList<Disciplina> listarDisciplinas() throws DisciplinaNaoCadastradaException {
+    public ArrayList<Disciplina> listarDisciplinas() throws SemDisciplinaCadastradaException {
         return this.controladorAdministrador.listarDisciplinas();
     }
 
     @Override
-    public boolean cadastrarTurma(Turma turma) throws TurmaJaCadastradaException {
+    public boolean cadastrarTurma(Turma turma) {
         return this.controladorAdministrador.cadastrarTurma(turma);
     }
 
     @Override
-    public boolean removerTurma(int turmaId) throws TurmaNaoCadastradaException {
+    public boolean removerTurma(int turmaId) throws SemTurmaCadastradaException {
         return this.controladorAdministrador.removerTurma(turmaId);
     }
 
     @Override
-    public Turma consultarTurma(int turmaId) throws TurmaNaoCadastradaException {
+    public Turma consultarTurma(int turmaId) throws SemTurmaCadastradaException {
         return this.controladorAdministrador.consultarTurma(turmaId);
     }
 
     @Override
-    public ArrayList<Turma> listarTurmas() throws TurmaNaoCadastradaException {
+    public ArrayList<Turma> listarTurmas() throws SemTurmaCadastradaException {
         return this.controladorAdministrador.listarTurmas();
     }
 

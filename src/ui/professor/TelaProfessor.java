@@ -20,6 +20,7 @@ public class TelaProfessor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.professor = professor;
         this.fachada = fachada;
+        this.professorField.setText("Bem vindo,"+ this.professor.getNome());
         this.pegarTurmas();
         if (this.turmas != null) {
             this.preencherBox();
@@ -33,7 +34,7 @@ public class TelaProfessor extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         turmasTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        professorField = new javax.swing.JLabel();
         turmasBox = new javax.swing.JComboBox<>();
         detalhesButton = new javax.swing.JButton();
         turmasDispButton = new javax.swing.JButton();
@@ -64,8 +65,8 @@ public class TelaProfessor extends javax.swing.JFrame {
             turmasTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Professor");
+        professorField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        professorField.setText("Professor");
 
         detalhesButton.setText("Ver detalhes");
         detalhesButton.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +97,7 @@ public class TelaProfessor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(163, 163, 163)
-                        .addComponent(jLabel1))
+                        .addComponent(professorField))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +117,7 @@ public class TelaProfessor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(professorField)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -202,8 +203,8 @@ public class TelaProfessor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizarButton;
     private javax.swing.JButton detalhesButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel professorField;
     private javax.swing.JComboBox<String> turmasBox;
     private javax.swing.JButton turmasDispButton;
     private javax.swing.JTable turmasTable;

@@ -25,35 +25,35 @@ public class ControladorAdministrador {
         return this.rep.logarAdministrador(login, senha);
     }
     
-    public boolean cadastrarDisciplina(Disciplina disciplina) throws DisciplinaJaCadastradaException {
+    public boolean cadastrarDisciplina(Disciplina disciplina) {
         return this.rep.cadastrarDisciplina(disciplina);
     }
 
-    public boolean removerDisciplina(int disciplinaId) throws DisciplinaNaoCadastradaException {
+    public boolean removerDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
         return this.rep.removerDisciplina(disciplinaId);
     }
 
-    public Disciplina consultarDisciplina(int disciplinaId) throws DisciplinaNaoCadastradaException {
+    public Disciplina consultarDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
         return this.rep.consultarDisciplina(disciplinaId);
     }
 
-    public ArrayList<Disciplina> listarDisciplinas() throws DisciplinaNaoCadastradaException {
+    public ArrayList<Disciplina> listarDisciplinas() throws SemDisciplinaCadastradaException {
         return this.rep.listarDisciplinas();
     }
 
-    public boolean cadastrarTurma(Turma turma) throws TurmaJaCadastradaException {
+    public boolean cadastrarTurma(Turma turma) {
         return this.rep.cadastrarTurma(turma);
     }
 
-    public boolean removerTurma(int turmaId) throws TurmaNaoCadastradaException {
+    public boolean removerTurma(int turmaId) throws SemTurmaCadastradaException {
         return this.rep.removerTurma(turmaId);
     }
 
-    public Turma consultarTurma(int turmaId) throws TurmaNaoCadastradaException {
+    public Turma consultarTurma(int turmaId) throws SemTurmaCadastradaException {
         return this.rep.consultarTurma(turmaId);
     }
 
-    public ArrayList<Turma> listarTurmas() throws TurmaNaoCadastradaException {
+    public ArrayList<Turma> listarTurmas() throws SemTurmaCadastradaException {
         return this.rep.listarTurmas();
     }
 

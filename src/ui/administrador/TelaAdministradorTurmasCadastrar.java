@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import negocios.Fachada;
 import negocios.entidades.Disciplina;
 import negocios.entidades.Turma;
-import negocios.excecoes.DisciplinaNaoCadastradaException;
+import negocios.excecoes.SemDisciplinaCadastradaException;
 import negocios.excecoes.TurmaJaCadastradaException;
 
 public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
@@ -20,7 +20,7 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
         try {
             this.disciplinas = this.fachada.listarDisciplinas();
             this.preencherBox();
-        } catch (DisciplinaNaoCadastradaException e) {
+        } catch (SemDisciplinaCadastradaException e) {
             JOptionPane.showConfirmDialog(null, "Não há nenhuma disciplina cadastrada");
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
@@ -42,11 +42,9 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
 
         jTextField6 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cadastrarButton = new javax.swing.JButton();
-        idField = new javax.swing.JTextField();
         capField = new javax.swing.JTextField();
         disciplinasBox = new javax.swing.JComboBox<>();
 
@@ -56,8 +54,6 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Cadastrar Turma");
-
-        jLabel2.setText("Id:");
 
         jLabel3.setText("Disciplina:");
 
@@ -78,16 +74,9 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(disciplinasBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(disciplinasBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -110,10 +99,6 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -140,7 +125,7 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
                 break;
             }
         }
-        Turma turma = new Turma(Integer.parseInt(idField.getText()),disc,null,(Integer.parseInt(capField.getText())),null);
+        Turma turma = new Turma(0,disc,null,(Integer.parseInt(capField.getText())),null);
         try {
             if (this.fachada.cadastrarTurma(turma)) {
                 JOptionPane.showConfirmDialog(null, "Turma cadastrada com sucesso!");
@@ -190,9 +175,7 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
     private javax.swing.JButton cadastrarButton;
     private javax.swing.JTextField capField;
     private javax.swing.JComboBox<String> disciplinasBox;
-    private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTextField6;

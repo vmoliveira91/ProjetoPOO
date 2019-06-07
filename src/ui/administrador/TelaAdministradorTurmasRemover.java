@@ -5,7 +5,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import negocios.Fachada;
 import negocios.entidades.Turma;
-import negocios.excecoes.TurmaNaoCadastradaException;
+import negocios.excecoes.SemTurmaCadastradaException;
 
 public class TelaAdministradorTurmasRemover extends javax.swing.JFrame {
 
@@ -18,7 +18,7 @@ public class TelaAdministradorTurmasRemover extends javax.swing.JFrame {
         try {
             this.turmas = this.fachada.listarTurmas();
             this.preencherBox();
-        } catch (TurmaNaoCadastradaException e) {
+        } catch (SemTurmaCadastradaException e) {
             JOptionPane.showConfirmDialog(null, "Não há nenhuma turma cadastrada");
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
@@ -37,7 +37,7 @@ public class TelaAdministradorTurmasRemover extends javax.swing.JFrame {
     private void atualizarTurmas() {
         try {
             this.turmas = this.fachada.listarTurmas();
-        } catch (TurmaNaoCadastradaException e) {
+        } catch (SemTurmaCadastradaException e) {
             JOptionPane.showConfirmDialog(null, "Não há nenhuma turma cadastrada");
         }
     }
@@ -104,7 +104,7 @@ public class TelaAdministradorTurmasRemover extends javax.swing.JFrame {
                 this.atualizarTurmas();
                 this.preencherBox();
             }
-        } catch (TurmaNaoCadastradaException e) {
+        } catch (SemTurmaCadastradaException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
         }
 

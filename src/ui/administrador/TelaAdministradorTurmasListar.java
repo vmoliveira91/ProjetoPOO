@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import negocios.Fachada;
 import negocios.entidades.Turma;
-import negocios.excecoes.TurmaNaoCadastradaException;
+import negocios.excecoes.SemTurmaCadastradaException;
 
 public class TelaAdministradorTurmasListar extends javax.swing.JFrame {
 
@@ -18,7 +18,7 @@ public class TelaAdministradorTurmasListar extends javax.swing.JFrame {
         try {
             this.turmas = this.fachada.listarTurmas();
             this.preencherTable();
-        } catch (TurmaNaoCadastradaException e) {
+        } catch (SemTurmaCadastradaException e) {
             JOptionPane.showConfirmDialog(null, "Não há nenhuma turma cadastrada");
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);

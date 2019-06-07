@@ -8,21 +8,21 @@ public interface IRepositorioAdministrador {
 
     public boolean logarAdministrador(String login, String senha) throws UsuarioNaoCadastradoException, SenhaInvalidaException;
     
-    public boolean cadastrarDisciplina(Disciplina disciplina) throws DisciplinaJaCadastradaException;
+    public boolean cadastrarDisciplina(Disciplina disciplina);
 
-    public boolean removerDisciplina(int disciplinaId) throws DisciplinaNaoCadastradaException;
+    public boolean removerDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException;
 
-    public Disciplina consultarDisciplina(int disciplinaId) throws DisciplinaNaoCadastradaException;
+    public Disciplina consultarDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException;
 
-    public ArrayList<Disciplina> listarDisciplinas() throws DisciplinaNaoCadastradaException;
+    public ArrayList<Disciplina> listarDisciplinas() throws SemDisciplinaCadastradaException;
 
-    public boolean cadastrarTurma(Turma turma) throws TurmaJaCadastradaException;
+    public boolean cadastrarTurma(Turma turma);
 
-    public boolean removerTurma(int turmaId) throws TurmaNaoCadastradaException;
+    public boolean removerTurma(int turmaId) throws SemTurmaCadastradaException;
 
-    public Turma consultarTurma(int turmaId) throws TurmaNaoCadastradaException;
+    public Turma consultarTurma(int turmaId) throws SemTurmaCadastradaException;
 
-    public ArrayList<Turma> listarTurmas() throws TurmaNaoCadastradaException;
+    public ArrayList<Turma> listarTurmas() throws SemTurmaCadastradaException;
 
     public boolean removerProfessor(int professorId) throws UsuarioNaoCadastradoException;
 

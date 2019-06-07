@@ -12,42 +12,42 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
     }
 
     @Override
-    public boolean cadastrarDisciplina(Disciplina disciplina) throws DisciplinaJaCadastradaException {
+    public boolean cadastrarDisciplina(Disciplina disciplina) {
         return true;
     }
 
     @Override
-    public boolean removerDisciplina(int disciplinaId) throws DisciplinaNaoCadastradaException {
+    public boolean removerDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
         return true;
     }
 
     @Override
-    public Disciplina consultarDisciplina(int disciplinaId) throws DisciplinaNaoCadastradaException {
+    public Disciplina consultarDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
         return null;
     }
 
     @Override
-    public ArrayList<Disciplina> listarDisciplinas() throws DisciplinaNaoCadastradaException {
+    public ArrayList<Disciplina> listarDisciplinas() throws SemDisciplinaCadastradaException {
         return null;
     }
 
     @Override
-    public boolean cadastrarTurma(Turma turma) throws TurmaJaCadastradaException {
+    public boolean cadastrarTurma(Turma turma) {
         return true;
     }
 
     @Override
-    public boolean removerTurma(int turmaId) throws TurmaNaoCadastradaException {
+    public boolean removerTurma(int turmaId) throws SemTurmaCadastradaException {
         return true;
     }
 
     @Override
-    public Turma consultarTurma(int turmaId) throws TurmaNaoCadastradaException {
+    public Turma consultarTurma(int turmaId) throws SemTurmaCadastradaException {
         return null;
     }
 
     @Override
-    public ArrayList<Turma> listarTurmas() throws TurmaNaoCadastradaException {
+    public ArrayList<Turma> listarTurmas() throws SemTurmaCadastradaException {
         return null;
     }
 
