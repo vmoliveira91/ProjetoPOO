@@ -127,12 +127,16 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void entrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarButtonActionPerformed
         if (jComboBox1.getSelectedItem().equals("Administrador")) {
-            //if (fachada.logarAdministrador(jTextField1.getText(), jTextField2.getText())) {
-            // TODO - chamar nova tela
-            TelaAdministrador administrador = new TelaAdministrador(fachada);
-            administrador.setVisible(true);
-            administrador.setResizable(false);
-            //}
+            try {
+                fachada.logarAdministrador(jTextField1.getText(), jTextField2.getText());
+                TelaAdministrador administrador = new TelaAdministrador(fachada);
+                administrador.setVisible(true);
+                administrador.setResizable(false);
+            } catch(UsuarioNaoCadastradoException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } catch(SenhaInvalidaException e2) {
+                JOptionPane.showMessageDialog(null, e2.getMessage());
+            }            
         } else if (jComboBox1.getSelectedItem().equals("Aluno")) {
             try {
                 this.aluno = fachada.logarAluno(jTextField1.getText(), jTextField2.getText());

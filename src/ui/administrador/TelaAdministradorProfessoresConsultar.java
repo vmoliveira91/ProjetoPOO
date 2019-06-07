@@ -19,7 +19,7 @@ public class TelaAdministradorProfessoresConsultar extends javax.swing.JFrame {
             this.professores = this.fachada.listarProfessores();
             this.preencherBox();
         } catch (UsuarioNaoCadastradoException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhuma disciplina cadastrada");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);

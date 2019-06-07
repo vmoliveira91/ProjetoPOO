@@ -3,7 +3,6 @@ package ui.administrador;
 import javax.swing.JOptionPane;
 import negocios.Fachada;
 import negocios.entidades.Disciplina;
-import negocios.excecoes.DisciplinaJaCadastradaException;
 
 public class TelaAdministradorDisciplinasCadastrar extends javax.swing.JFrame {
 
@@ -52,19 +51,22 @@ public class TelaAdministradorDisciplinasCadastrar extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(nomeField))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ementaField, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ementaField, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addComponent(cadastrarButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,12 +91,9 @@ public class TelaAdministradorDisciplinasCadastrar extends javax.swing.JFrame {
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
         Disciplina disciplina = new Disciplina(0, nomeField.getText(), ementaField.getText());
-        try {
-            if (this.fachada.cadastrarDisciplina(disciplina)) {
-                JOptionPane.showMessageDialog(null, "Disciplina cadastrada com sucesso!");
-            }
-        } catch (DisciplinaJaCadastradaException e) {
-            JOptionPane.showMessageDialog(null, "Disciplina não cadastrada!");
+        if (this.fachada.cadastrarDisciplina(disciplina)) {
+            JOptionPane.showMessageDialog(null, "Disciplina cadastrada com sucesso!");
+            dispose();
         }
     }//GEN-LAST:event_cadastrarButtonActionPerformed
 

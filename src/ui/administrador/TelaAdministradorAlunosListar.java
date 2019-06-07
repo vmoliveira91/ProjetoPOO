@@ -19,7 +19,7 @@ public class TelaAdministradorAlunosListar extends javax.swing.JFrame {
             this.alunos = this.fachada.listarAlunos();
             this.preencherTable();
         } catch (UsuarioNaoCadastradoException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhum aluno cadastrado");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);

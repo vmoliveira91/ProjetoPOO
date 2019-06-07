@@ -19,10 +19,10 @@ public class TelaAdministradorProfessoresRemover extends javax.swing.JFrame {
             this.professores = this.fachada.listarProfessores();
             this.preencherBox();
         } catch (UsuarioNaoCadastradoException e) {
-            JOptionPane.showConfirmDialog(null, "Não há nenhum professor cadastrado");
-            setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
-            setLocationRelativeTo(null);
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
     private void preencherBox() {
@@ -38,7 +38,7 @@ public class TelaAdministradorProfessoresRemover extends javax.swing.JFrame {
         try {
             this.professores = this.fachada.listarProfessores();
         } catch (UsuarioNaoCadastradoException e) {
-            JOptionPane.showConfirmDialog(null, "Não há nenhum professor cadastrado");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -98,51 +98,12 @@ public class TelaAdministradorProfessoresRemover extends javax.swing.JFrame {
         String professorSelecionado = this.removerBox.getSelectedItem().toString();
         Professor prof = null;
         int professorId = Integer.parseInt(professorSelecionado.split(" ")[0]);
-        try {
-            if (this.fachada.removerProfessor(professorId)) {
-                JOptionPane.showConfirmDialog(null, "Professor removido com sucesso!");
-                this.atualizarProfessores();
-                this.preencherBox();
-            }
-        } catch (UsuarioNaoCadastradoException e) {
-            JOptionPane.showConfirmDialog(null, e.getMessage());
+        if (this.fachada.removerProfessor(professorId)) {
+            JOptionPane.showMessageDialog(null, "Professor removido com sucesso!");
+            this.atualizarProfessores();
+            this.preencherBox();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAdministradorProfessoresRemover.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAdministradorProfessoresRemover.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAdministradorProfessoresRemover.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAdministradorProfessoresRemover.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaAdministradorProfessoresRemover(null).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

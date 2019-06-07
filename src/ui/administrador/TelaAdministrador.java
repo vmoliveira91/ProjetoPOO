@@ -9,7 +9,6 @@ public class TelaAdministrador extends javax.swing.JFrame {
     public TelaAdministrador(Fachada fachada) {
         initComponents();
         setLocationRelativeTo(null);
-        this.setResizable(false);
         this.fachada = fachada;
     }
 
@@ -95,7 +94,6 @@ public class TelaAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alunoButtonActionPerformed
-        // TODO add your handling code here:
         TelaAdministradorAlunos aluno = new TelaAdministradorAlunos(this.fachada);
         aluno.setVisible(true);
         aluno.setResizable(false);
@@ -115,8 +113,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         disciplina.setResizable(false);
         disciplina.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_disciplinaButtonActionPerformed
-    
-    // TODO
+        
     private void turmaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turmaButtonActionPerformed
        TelaAdministradorTurmas turma = new TelaAdministradorTurmas(this.fachada);
        turma.setVisible(true);

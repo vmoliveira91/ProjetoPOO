@@ -19,7 +19,7 @@ public class TelaAdministradorAlunosRemover extends javax.swing.JFrame {
             this.alunos = this.fachada.listarAlunos();
             this.preencherBox();
         } catch (UsuarioNaoCadastradoException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhum aluno cadastrado");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -38,7 +38,7 @@ public class TelaAdministradorAlunosRemover extends javax.swing.JFrame {
         try {
             this.alunos = this.fachada.listarAlunos();
         } catch (UsuarioNaoCadastradoException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhum aluno cadastrado");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -99,14 +99,10 @@ public class TelaAdministradorAlunosRemover extends javax.swing.JFrame {
         String alunoSelecionado = this.alunosBox.getSelectedItem().toString();
         Aluno alunoo = null;
         int alunoId = Integer.parseInt(alunoSelecionado.split(" ")[0]);
-        try {
-            if (this.fachada.removerAluno(alunoId)) {
-                JOptionPane.showMessageDialog(null, "Aluno removido com sucesso!");
-                this.atualizarAlunos();
-                this.preencherBox();
-            }
-        } catch (UsuarioNaoCadastradoException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        if (this.fachada.removerAluno(alunoId)) {
+            JOptionPane.showMessageDialog(null, "Aluno removido com sucesso!");
+            this.atualizarAlunos();
+            this.preencherBox();
         }
     }//GEN-LAST:event_removerButtonActionPerformed
 

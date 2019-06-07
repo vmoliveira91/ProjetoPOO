@@ -163,9 +163,6 @@
     <Component class="javax.swing.JTextField" name="nomeField">
     </Component>
     <Component class="javax.swing.JTextField" name="nascField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nascFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="periodoField">
     </Component>

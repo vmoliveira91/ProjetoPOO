@@ -19,7 +19,8 @@ public class TelaAdministradorDisciplinasConsultar extends javax.swing.JFrame {
             this.disciplinas = this.fachada.listarDisciplinas();
             this.preencherBox();
         } catch (SemDisciplinaCadastradaException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhuma disciplina cadastrada");
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            dispose();
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);

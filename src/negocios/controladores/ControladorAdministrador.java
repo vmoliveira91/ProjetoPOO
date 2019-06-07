@@ -29,19 +29,15 @@ public class ControladorAdministrador {
         return this.rep.cadastrarDisciplina(disciplina);
     }
 
-    public boolean removerDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
+    public boolean removerDisciplina(int disciplinaId) {
         return this.rep.removerDisciplina(disciplinaId);
-    }
-
-    public Disciplina consultarDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
-        return this.rep.consultarDisciplina(disciplinaId);
     }
 
     public ArrayList<Disciplina> listarDisciplinas() throws SemDisciplinaCadastradaException {
         return this.rep.listarDisciplinas();
     }
 
-    public boolean cadastrarTurma(Turma turma) {
+    public boolean cadastrarTurma(Turma turma) throws CapacidadeInvalidaException {
         return this.rep.cadastrarTurma(turma);
     }
 
@@ -57,24 +53,16 @@ public class ControladorAdministrador {
         return this.rep.listarTurmas();
     }
 
-    public boolean removerProfessor(int professorId) throws UsuarioNaoCadastradoException {
+    public boolean removerProfessor(int professorId) {
         return this.rep.removerProfessor(professorId);
-    }
-
-    public Professor consultarProfessor(int professorId) throws UsuarioNaoCadastradoException {
-        return this.rep.consultarProfessor(professorId);
     }
 
     public ArrayList<Professor> listarProfessores() throws UsuarioNaoCadastradoException {
         return this.rep.listarProfessores();
     }
 
-    public boolean removerAluno(int alunoId) throws UsuarioNaoCadastradoException {
+    public boolean removerAluno(int alunoId) {
         return this.rep.removerAluno(alunoId);
-    }
-
-    public Aluno consultarAluno(int alunoId) throws UsuarioNaoCadastradoException {
-        return this.rep.consultarAluno(alunoId);
     }
 
     public ArrayList<Aluno> listarAlunos() throws UsuarioNaoCadastradoException {

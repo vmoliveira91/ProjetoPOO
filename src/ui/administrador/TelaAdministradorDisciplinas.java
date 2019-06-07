@@ -8,9 +8,9 @@ public class TelaAdministradorDisciplinas extends javax.swing.JFrame {
 
     public TelaAdministradorDisciplinas(Fachada fachada) {
         initComponents();
-        this.fachada = fachada;
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        this.fachada = fachada;
     }
 
     @SuppressWarnings("unchecked")

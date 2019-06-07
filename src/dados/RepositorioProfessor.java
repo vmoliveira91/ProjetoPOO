@@ -103,14 +103,18 @@ public class RepositorioProfessor implements IRepositorioProfessor {
                         + "', '" + dataStr + "', '" + professor.getCargo() + "');";
 
                 statement.executeUpdate(sqlInsert);
-                statement.close();
-                this.conexao.desconectar();
-                JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
             } else {
                 throw new UsuarioJaCadastradoException("Usuário já cadastrado!");
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            try {
+                statement.close();
+                this.conexao.desconectar();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
 
         return true;
@@ -202,12 +206,16 @@ public class RepositorioProfessor implements IRepositorioProfessor {
                 rendimentos.add(new RendimentoEscolar(new Turma(turmaId, null, null, 0, null), new Aluno(alunoId, alunoNome, 0, 0, 0, 0, "", ""),
                         nota1, nota2, trabalhos, notaTrabalhos));
             }
-
-            resultSet.close();
-            statement.close();
-            this.conexao.desconectar();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            try {
+                resultSet.close();
+                statement.close();
+                this.conexao.desconectar();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
         if (rendimentos.isEmpty()) {
             throw new SemAlunoMatriculadoException("Sem aluno matriculado!");
@@ -288,7 +296,7 @@ public class RepositorioProfessor implements IRepositorioProfessor {
 
         String sqlSelect = "select t.id as id, d.nome as discNome from turma as t\n"
                 + "inner join disciplina as d on t.id_disciplina = d.id\n"
-                + "where t.id_professor <> " + professorId + ";";
+                + "where t.id_professor <> " + professorId + " or t.id_professor is null;";
 
         statement = this.conexao.criarStatement();
 

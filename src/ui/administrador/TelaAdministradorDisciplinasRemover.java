@@ -19,7 +19,8 @@ public class TelaAdministradorDisciplinasRemover extends javax.swing.JFrame {
             this.disciplinas = this.fachada.listarDisciplinas();
             this.preencherBox();
         } catch (SemDisciplinaCadastradaException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhuma disciplina cadastrada");
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            dispose();
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -38,7 +39,7 @@ public class TelaAdministradorDisciplinasRemover extends javax.swing.JFrame {
         try {
             this.disciplinas = this.fachada.listarDisciplinas();
         } catch (SemDisciplinaCadastradaException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhuma disciplina cadastrada");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -98,14 +99,10 @@ public class TelaAdministradorDisciplinasRemover extends javax.swing.JFrame {
         String disciplinaSelecionada = this.disciplinasBox.getSelectedItem().toString();
         Disciplina disc = null;
         int disciplinaId = Integer.parseInt(disciplinaSelecionada.split(" ")[0]);
-        try {
-            if (this.fachada.removerDisciplina(disciplinaId)) {
-                JOptionPane.showMessageDialog(null, "Disciplina removida com sucesso!");
-                this.atualizarDisciplinas();
-                this.preencherBox();
-            }
-        } catch (SemDisciplinaCadastradaException e) {
-            JOptionPane.showConfirmDialog(null, e.getMessage());
+        if (this.fachada.removerDisciplina(disciplinaId)) {
+            JOptionPane.showMessageDialog(null, "Disciplina removida com sucesso!");
+            this.atualizarDisciplinas();
+            this.preencherBox();
         }
     }//GEN-LAST:event_removerButtonActionPerformed
 

@@ -134,7 +134,9 @@ public class TelaAlunoCadastrar extends javax.swing.JFrame {
         mes = Integer.parseInt(dataSeparada[1]);
         ano = Integer.parseInt(dataSeparada[2]);
         try {
-            this.fachada.cadastrarAluno(new Aluno(0, this.nomeField.getText(), dia, mes, ano, Integer.parseInt(this.periodoField.getText()), this.loginField.getText(), this.senhaField.getText()));
+            if(this.fachada.cadastrarAluno(new Aluno(0, this.nomeField.getText(), dia, mes, ano, Integer.parseInt(this.periodoField.getText()), this.loginField.getText(), this.senhaField.getText()))) {
+                JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso!");
+            }
             dispose();
         } catch(UsuarioJaCadastradoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());

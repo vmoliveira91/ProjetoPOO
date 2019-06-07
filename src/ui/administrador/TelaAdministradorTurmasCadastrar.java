@@ -7,7 +7,7 @@ import negocios.Fachada;
 import negocios.entidades.Disciplina;
 import negocios.entidades.Turma;
 import negocios.excecoes.SemDisciplinaCadastradaException;
-import negocios.excecoes.TurmaJaCadastradaException;
+import negocios.excecoes.CapacidadeInvalidaException;
 
 public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
 
@@ -21,7 +21,7 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
             this.disciplinas = this.fachada.listarDisciplinas();
             this.preencherBox();
         } catch (SemDisciplinaCadastradaException e) {
-            JOptionPane.showConfirmDialog(null, "Não há nenhuma disciplina cadastrada");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -128,48 +128,12 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
         Turma turma = new Turma(0,disc,null,(Integer.parseInt(capField.getText())),null);
         try {
             if (this.fachada.cadastrarTurma(turma)) {
-                JOptionPane.showConfirmDialog(null, "Turma cadastrada com sucesso!");
+                JOptionPane.showMessageDialog(null, "Turma cadastrada com sucesso!");
             }
-        } catch (TurmaJaCadastradaException e) {
-            JOptionPane.showConfirmDialog(null, "Turma não cadastrada!");
+        } catch (CapacidadeInvalidaException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        //TODO ver como vai fazer isso
     }//GEN-LAST:event_cadastrarButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAdministradorTurmasCadastrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAdministradorTurmasCadastrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAdministradorTurmasCadastrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAdministradorTurmasCadastrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaAdministradorTurmasCadastrar(null).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarButton;

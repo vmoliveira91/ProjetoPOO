@@ -69,12 +69,6 @@ public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFram
 
         jLabel7.setText("Senha:");
 
-        nascField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nascFieldActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,10 +151,6 @@ public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFram
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nascFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nascFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nascFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();

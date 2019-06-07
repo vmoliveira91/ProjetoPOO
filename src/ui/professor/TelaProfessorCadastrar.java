@@ -136,8 +136,10 @@ public class TelaProfessorCadastrar extends javax.swing.JFrame {
         mes = Integer.parseInt(dataSeparada[1]);
         ano = Integer.parseInt(dataSeparada[2]);                 
         try {
-            this.fachada.cadastrarProfessor(new Professor(0, this.nomeField.getText(), this.cargoField.getText(), dia, mes, ano,
-                    this.loginField.getText(), this.senhaField.getText()));
+            if(this.fachada.cadastrarProfessor(new Professor(0, this.nomeField.getText(), this.cargoField.getText(), dia, mes, ano,
+                    this.loginField.getText(), this.senhaField.getText()))) {
+                JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
+            }
             dispose();
         } catch (UsuarioJaCadastradoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());

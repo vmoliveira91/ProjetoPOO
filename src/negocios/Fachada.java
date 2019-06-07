@@ -166,13 +166,8 @@ public class Fachada implements IFachadaAdministrador, IFachadaAluno, IFachadaPr
     }
 
     @Override
-    public boolean removerDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
+    public boolean removerDisciplina(int disciplinaId) {
         return this.controladorAdministrador.removerDisciplina(disciplinaId);
-    }
-
-    @Override
-    public Disciplina consultarDisciplina(int disciplinaId) throws SemDisciplinaCadastradaException {
-        return this.controladorAdministrador.consultarDisciplina(disciplinaId);
     }
 
     @Override
@@ -181,7 +176,7 @@ public class Fachada implements IFachadaAdministrador, IFachadaAluno, IFachadaPr
     }
 
     @Override
-    public boolean cadastrarTurma(Turma turma) {
+    public boolean cadastrarTurma(Turma turma) throws CapacidadeInvalidaException {
         return this.controladorAdministrador.cadastrarTurma(turma);
     }
 
@@ -201,13 +196,8 @@ public class Fachada implements IFachadaAdministrador, IFachadaAluno, IFachadaPr
     }
 
     @Override
-    public boolean removerProfessor(int professorId) throws UsuarioNaoCadastradoException {
+    public boolean removerProfessor(int professorId) {
         return this.controladorAdministrador.removerProfessor(professorId);
-    }
-
-    @Override
-    public Professor consultarProfessor(int professorId) throws UsuarioNaoCadastradoException {
-        return this.controladorAdministrador.consultarProfessor(professorId);
     }
 
     @Override
@@ -216,13 +206,8 @@ public class Fachada implements IFachadaAdministrador, IFachadaAluno, IFachadaPr
     }
 
     @Override
-    public boolean removerAluno(int alunoId) throws UsuarioNaoCadastradoException {
+    public boolean removerAluno(int alunoId) {
         return this.controladorAdministrador.removerAluno(alunoId);
-    }
-
-    @Override
-    public Aluno consultarAluno(int alunoId) throws UsuarioNaoCadastradoException {
-        return this.controladorAdministrador.consultarAluno(alunoId);
     }
 
     @Override
