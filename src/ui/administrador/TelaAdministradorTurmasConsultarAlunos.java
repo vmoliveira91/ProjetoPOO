@@ -1,38 +1,33 @@
 package ui.administrador;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import negocios.Fachada;
+import negocios.entidades.Aluno;
 import negocios.entidades.Turma;
-import negocios.excecoes.SemTurmaCadastradaException;
 
-public class TelaAdministradorTurmasListar extends javax.swing.JFrame {
+public class TelaAdministradorTurmasConsultarAlunos extends javax.swing.JFrame {
 
+    private final Turma turma;
     private final Fachada fachada;
-    private ArrayList<Turma> turmas;
+    private ArrayList<Aluno> alunos;
 
-    public TelaAdministradorTurmasListar(Fachada fachada) {
-        initComponents();
+    public TelaAdministradorTurmasConsultarAlunos(Fachada fachada, Turma turma) {
+        this.turma = turma;
         this.fachada = fachada;
-        try {
-            this.turmas = this.fachada.listarTurmas();
-            this.preencherTable();
-        } catch (SemTurmaCadastradaException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        initComponents();
+        this.alunos = this.turma.getAlunos();
+        this.preencherTable();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     private void preencherTable() {
-        DefaultTableModel model = (DefaultTableModel) listarTable.getModel();
-        Object rowData[] = new Object[4];
-        for (int i = 0; i < this.turmas.size(); i++) {
-            rowData[0] = this.turmas.get(i).getId();
-            rowData[1] = this.turmas.get(i).getDisciplina().getNome();
-            rowData[2] = this.turmas.get(i).getProfessor().getNome();
-            rowData[3] = this.turmas.get(i).getCapacidadaDaTurma();
+        DefaultTableModel model = (DefaultTableModel) tableAlunos.getModel();
+        Object rowData[] = new Object[2];
+        for (int i = 0; i < this.alunos.size(); i++) {
+            rowData[0] = this.alunos.get(i).getId();
+            rowData[1] = this.alunos.get(i).getNome();
             model.addRow(rowData);
         }
     }
@@ -43,23 +38,26 @@ public class TelaAdministradorTurmasListar extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listarTable = new javax.swing.JTable();
+        tableAlunos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setText("Listar Turmas");
+        jLabel1.setText("Alunos");
 
-        listarTable.setModel(new javax.swing.table.DefaultTableModel(
+        tableAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Disciplina", "Professor", "Capacidade"
+                "Id", "Nome"
             }
         ));
-        jScrollPane1.setViewportView(listarTable);
+        jScrollPane1.setViewportView(tableAlunos);
+        if (tableAlunos.getColumnModel().getColumnCount() > 0) {
+            tableAlunos.getColumnModel().getColumn(0).setPreferredWidth(20);
+        }
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,17 +73,16 @@ public class TelaAdministradorTurmasListar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(176, 176, 176)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(jLabel1)
-                        .addGap(0, 110, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(13, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
+                .addGap(155, 155, 155))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,7 +91,7 @@ public class TelaAdministradorTurmasListar extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -110,6 +107,6 @@ public class TelaAdministradorTurmasListar extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable listarTable;
+    private javax.swing.JTable tableAlunos;
     // End of variables declaration//GEN-END:variables
 }

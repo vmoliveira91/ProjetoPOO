@@ -1,5 +1,6 @@
 package ui.administrador;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,8 @@ public class TelaAdministradorAlunosListar extends javax.swing.JFrame {
         for (int i = 0; i < this.alunos.size(); i++) {
             rowData[0] = this.alunos.get(i).getId();
             rowData[1] = this.alunos.get(i).getNome();
-            rowData[2] = this.alunos.get(i).getDataNascimento();
+            LocalDate data = this.alunos.get(i).getDataNascimento();
+            rowData[2] = data.getDayOfMonth() + "/" + data.getMonthValue() + "/" + data.getYear();
             rowData[3] = this.alunos.get(i).getPeriodo();
             rowData[4] = this.alunos.get(i).getLogin();
             model.addRow(rowData);

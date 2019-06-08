@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import negocios.entidades.*;
 import negocios.excecoes.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class RepositorioAluno implements IRepositorioAluno {
 

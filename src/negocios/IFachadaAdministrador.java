@@ -18,8 +18,6 @@ public interface IFachadaAdministrador {
 
     public boolean removerTurma(int turmaId) throws SemTurmaCadastradaException;
 
-    public Turma consultarTurma(int turmaId) throws SemTurmaCadastradaException;
-
     public ArrayList<Turma> listarTurmas() throws SemTurmaCadastradaException;
 
     public boolean removerProfessor(int professorId);

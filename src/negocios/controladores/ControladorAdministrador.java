@@ -45,10 +45,6 @@ public class ControladorAdministrador {
         return this.rep.removerTurma(turmaId);
     }
 
-    public Turma consultarTurma(int turmaId) throws SemTurmaCadastradaException {
-        return this.rep.consultarTurma(turmaId);
-    }
-
     public ArrayList<Turma> listarTurmas() throws SemTurmaCadastradaException {
         return this.rep.listarTurmas();
     }

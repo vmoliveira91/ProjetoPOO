@@ -16,7 +16,7 @@ public class TelaAdministradorTurmasConsultar extends javax.swing.JFrame {
         this.fachada = null;
         initComponents();
     }
-    
+
     public TelaAdministradorTurmasConsultar(Fachada fachada) {
         initComponents();
         this.fachada = fachada;
@@ -24,7 +24,7 @@ public class TelaAdministradorTurmasConsultar extends javax.swing.JFrame {
             this.turmas = this.fachada.listarTurmas();
             preencherBox();
         } catch (SemTurmaCadastradaException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhuma turma cadastrada");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -102,7 +102,7 @@ public class TelaAdministradorTurmasConsultar extends javax.swing.JFrame {
                 break;
             }
         }
-        TelaAdministradorTurmasConsultarResultados resultado = new TelaAdministradorTurmasConsultarResultados(turmaa);
+        TelaAdministradorTurmasConsultarResultados resultado = new TelaAdministradorTurmasConsultarResultados(this.fachada, turmaa);
         resultado.setVisible(true);
         resultado.setResizable(false);
         dispose();

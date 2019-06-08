@@ -1,5 +1,6 @@
 package ui.administrador;
 
+import java.time.LocalDate;
 import negocios.entidades.Aluno;
 
 public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFrame {
@@ -19,14 +20,13 @@ public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFram
         this.idField.setEditable(false);
         this.nomeField.setText(this.aluno.getNome());
         this.nomeField.setEditable(false);
-        this.nascField.setText(this.aluno.getDataNascimento() + "");
+        LocalDate data = this.aluno.getDataNascimento();        
+        this.nascField.setText(data.getDayOfMonth() + "/" + data.getMonthValue() + "/" + data.getYear());
         this.nascField.setEditable(false);
         this.periodoField.setText(this.aluno.getPeriodo() + "");
         this.periodoField.setEditable(false);
         this.loginField.setText(this.aluno.getLogin());
         this.loginField.setEditable(false);
-        this.senhaField.setText(this.aluno.getSenha());
-        this.senhaField.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -40,13 +40,11 @@ public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFram
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         idField = new javax.swing.JTextField();
         nomeField = new javax.swing.JTextField();
         nascField = new javax.swing.JTextField();
         periodoField = new javax.swing.JTextField();
         loginField = new javax.swing.JTextField();
-        senhaField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         jTextField7.setText("jTextField7");
@@ -66,8 +64,6 @@ public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFram
         jLabel5.setText("Período");
 
         jLabel6.setText("Login:");
-
-        jLabel7.setText("Senha:");
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,19 +96,12 @@ public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFram
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(periodoField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(senhaField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(loginField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -140,10 +129,6 @@ public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFram
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(loginField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(senhaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -165,12 +150,10 @@ public class TelaAdministradorAlunosConsultarResultado extends javax.swing.JFram
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField loginField;
     private javax.swing.JTextField nascField;
     private javax.swing.JTextField nomeField;
     private javax.swing.JTextField periodoField;
-    private javax.swing.JTextField senhaField;
     // End of variables declaration//GEN-END:variables
 }

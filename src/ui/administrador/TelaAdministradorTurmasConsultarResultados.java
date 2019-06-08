@@ -1,14 +1,17 @@
 package ui.administrador;
 
+import negocios.Fachada;
 import negocios.entidades.Turma;
 
 public class TelaAdministradorTurmasConsultarResultados extends javax.swing.JFrame {
 
     private final Turma turma;
+    private final Fachada fachada;
 
-    public TelaAdministradorTurmasConsultarResultados(Turma turma) {
+    public TelaAdministradorTurmasConsultarResultados(Fachada fachada, Turma turma) {
         initComponents();
         this.turma = turma;
+        this.fachada = fachada;
         this.preencher();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -23,9 +26,6 @@ public class TelaAdministradorTurmasConsultarResultados extends javax.swing.JFra
         this.professorField.setEditable(false);
         this.capField.setText(this.turma.getCapacidadaDaTurma() + "");
         this.capField.setEditable(false);
-        this.alunosField.setText(this.turma.getAlunos() + "");
-        this.alunosField.setEditable(false);
-        //todo alunos
     }
 
     @SuppressWarnings("unchecked")
@@ -37,13 +37,12 @@ public class TelaAdministradorTurmasConsultarResultados extends javax.swing.JFra
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         idField = new javax.swing.JTextField();
         disciplinaField = new javax.swing.JTextField();
         professorField = new javax.swing.JTextField();
         capField = new javax.swing.JTextField();
-        alunosField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        alunosButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName(""); // NOI18N
@@ -59,20 +58,23 @@ public class TelaAdministradorTurmasConsultarResultados extends javax.swing.JFra
 
         jLabel5.setText("Capacidade da turma:");
 
-        jLabel6.setText("Alunos:");
-
         idField.setName(""); // NOI18N
 
         disciplinaField.setName(""); // NOI18N
 
         professorField.setName(""); // NOI18N
 
-        alunosField.setName(""); // NOI18N
-
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        alunosButton.setText("Ver alunos");
+        alunosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alunosButtonActionPerformed(evt);
             }
         });
 
@@ -99,16 +101,14 @@ public class TelaAdministradorTurmasConsultarResultados extends javax.swing.JFra
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(capField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(alunosField, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(capField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(alunosButton)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,10 +133,8 @@ public class TelaAdministradorTurmasConsultarResultados extends javax.swing.JFra
                     .addComponent(capField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(alunosField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                    .addComponent(alunosButton)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -147,8 +145,14 @@ public class TelaAdministradorTurmasConsultarResultados extends javax.swing.JFra
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void alunosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alunosButtonActionPerformed
+        TelaAdministradorTurmasConsultarAlunos todosAlunos = new TelaAdministradorTurmasConsultarAlunos(this.fachada, this.turma);
+        todosAlunos.setVisible(true);
+        todosAlunos.setResizable(false);
+    }//GEN-LAST:event_alunosButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField alunosField;
+    private javax.swing.JButton alunosButton;
     private javax.swing.JTextField capField;
     private javax.swing.JTextField disciplinaField;
     private javax.swing.JTextField idField;
@@ -158,7 +162,6 @@ public class TelaAdministradorTurmasConsultarResultados extends javax.swing.JFra
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField professorField;
     // End of variables declaration//GEN-END:variables
 }

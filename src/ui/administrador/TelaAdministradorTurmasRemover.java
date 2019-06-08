@@ -19,7 +19,7 @@ public class TelaAdministradorTurmasRemover extends javax.swing.JFrame {
             this.turmas = this.fachada.listarTurmas();
             this.preencherBox();
         } catch (SemTurmaCadastradaException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhuma turma cadastrada");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -38,7 +38,7 @@ public class TelaAdministradorTurmasRemover extends javax.swing.JFrame {
         try {
             this.turmas = this.fachada.listarTurmas();
         } catch (SemTurmaCadastradaException e) {
-            JOptionPane.showMessageDialog(null, "Não há nenhuma turma cadastrada");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 

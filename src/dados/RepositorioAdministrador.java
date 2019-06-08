@@ -3,7 +3,6 @@ package dados;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import negocios.entidades.*;
 import negocios.excecoes.*;
 import java.util.ArrayList;
@@ -82,7 +81,6 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
                 System.out.println(ex.getMessage());
             }
         }
-
         return true;
     }
 
@@ -108,7 +106,6 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
                 System.out.println(ex.getMessage());
             }
         }
-
         return true;
     }
 
@@ -154,7 +151,6 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
                 System.out.println(ex.getMessage());
             }
         }
-
         return listaDisciplina;
     }
 
@@ -177,7 +173,6 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
             statement.executeUpdate(sqlInsert);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            //throw new TurmaJaCadastradaException("Turma já cadastrada!");
         } finally {
             try {
                 statement.close();
@@ -215,13 +210,88 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
     }
 
     @Override
-    public Turma consultarTurma(int turmaId) throws SemTurmaCadastradaException {
-        return null;
-    }
-
-    @Override
     public ArrayList<Turma> listarTurmas() throws SemTurmaCadastradaException {
-        return null;
+        this.conexao.conectar();
+
+        ResultSet resultSet1 = null;
+        ResultSet resultSet2 = null;
+        Statement statement1 = null;
+        Statement statement2 = null;
+        
+        ArrayList<Turma> listaTurma = new ArrayList();
+
+        int idTurma = 0;
+        int disciplinaId = 0;
+        String disciplinaNome = null;
+        String disciplinaEmenta = null;
+        int professorId = 0;
+        String professorNome = null;
+        int capacidadeTurma = 0;
+
+        Disciplina disciplina = null;
+        Professor professor = null;
+        Turma turma = null;
+
+        String sqlSelect1 = "select t.id, t.id_disciplina as id_disciplina, d.nome as nome_disciplina, d.ementa, t.id_professor as id_professor, "
+                + "p.nome as nome_professor, capacidade_turma from turma as t\n"
+                + "inner join disciplina as d on t.id_disciplina = d.id\n"
+                + "left join professor as p on t.id_professor = p.id;";
+
+        statement1 = this.conexao.criarStatement();
+
+        try {
+            resultSet1 = statement1.executeQuery(sqlSelect1);
+            
+            if (resultSet1.next()) {
+                do {
+                    idTurma = resultSet1.getInt("id");
+                    professorId = resultSet1.getInt("id_professor");
+                    professorNome = resultSet1.getString("nome_professor");
+                    disciplinaId = resultSet1.getInt("id_disciplina");
+                    disciplinaNome = resultSet1.getString("nome_disciplina");
+                    disciplinaEmenta = resultSet1.getString("ementa");
+                    capacidadeTurma = resultSet1.getInt("capacidade_turma");
+
+                    professor = new Professor(professorId, professorNome, "", 0, 0, 0, "", "");
+                    disciplina = new Disciplina(disciplinaId, disciplinaNome, disciplinaEmenta);
+
+                    String sqlSelect2 = "select r.id_aluno as id_aluno, a.nome as nome_aluno from rendimentoescolar as r\n"
+                            + "inner join aluno as a on r.id_aluno = a.id where id_turma = " + idTurma + ";";
+                    
+                    statement2 = this.conexao.criarStatement();
+                    
+                    resultSet2 = statement2.executeQuery(sqlSelect2);
+                    
+                    ArrayList<Aluno> alunos = new ArrayList();
+                    
+                    if(resultSet2.next()) {
+                        do {
+                            int id = resultSet2.getInt("id_aluno");
+                            String nome = resultSet2.getString("nome_aluno");
+                            alunos.add(new Aluno(id, nome, 0, 0, 0, 0, "", ""));
+                        } while (resultSet2.next());
+                    }
+
+                    listaTurma.add(new Turma(idTurma, disciplina, professor, capacidadeTurma, alunos));
+
+                } while (resultSet1.next());
+            } else {
+                throw new SemTurmaCadastradaException("Não existem turmas cadastradas!");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                resultSet1.close();
+                resultSet2.close();
+                statement1.close();
+                statement2.close();
+                this.conexao.desconectar();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return listaTurma;
     }
 
     @Override
@@ -299,7 +369,6 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
                 System.out.println(ex.getMessage());
             }
         }
-
         return listaProfessor;
     }
 
@@ -325,7 +394,6 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
                 System.out.println(ex.getMessage());
             }
         }
-
         return true;
     }
 
@@ -378,7 +446,6 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
                 System.out.println(ex.getMessage());
             }
         }
-
         return listaAluno;
     }
 

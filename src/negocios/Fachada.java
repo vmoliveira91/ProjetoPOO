@@ -186,11 +186,6 @@ public class Fachada implements IFachadaAdministrador, IFachadaAluno, IFachadaPr
     }
 
     @Override
-    public Turma consultarTurma(int turmaId) throws SemTurmaCadastradaException {
-        return this.controladorAdministrador.consultarTurma(turmaId);
-    }
-
-    @Override
     public ArrayList<Turma> listarTurmas() throws SemTurmaCadastradaException {
         return this.controladorAdministrador.listarTurmas();
     }
