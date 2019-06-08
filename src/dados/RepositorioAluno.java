@@ -146,7 +146,7 @@ public class RepositorioAluno implements IRepositorioAluno {
 
                 Disciplina disciplina = new Disciplina(0, disciplinaNome, "");
                 Professor professor = new Professor(0, professorNome, "", 0, 0, 0, "", "");
-
+                
                 turma.add(new Turma(turmaId, disciplina, professor, 0, null));
             }
         } catch (SQLException e) {

@@ -175,7 +175,7 @@ public class TelaAluno extends javax.swing.JFrame {
         for (int i = 0; i < this.turmas.size(); i++) {
             rowData[0] = this.turmas.get(i).getId();
             rowData[1] = this.turmas.get(i).getDisciplina().getNome();
-            rowData[2] = this.turmas.get(i).getProfessor().getNome().equals("") ? "-" : this.turmas.get(i).getProfessor().getNome();
+            rowData[2] = this.turmas.get(i).getProfessor().getNome();
             model.addRow(rowData);
         }
     }

@@ -12,11 +12,6 @@ public class TelaAdministradorTurmasConsultar extends javax.swing.JFrame {
     private final Fachada fachada;
     private ArrayList<Turma> turmas;
 
-    public TelaAdministradorTurmasConsultar() {
-        this.fachada = null;
-        initComponents();
-    }
-
     public TelaAdministradorTurmasConsultar(Fachada fachada) {
         initComponents();
         this.fachada = fachada;
@@ -33,7 +28,9 @@ public class TelaAdministradorTurmasConsultar extends javax.swing.JFrame {
     private void preencherBox() {
         String[] disciplinasString = new String[this.turmas.size()];
         for (int i = 0; i < disciplinasString.length; i++) {
-            disciplinasString[i] = this.turmas.get(i).getId() + " - " + this.turmas.get(i).getDisciplina().getNome() + " - " + this.turmas.get(i).getProfessor().getNome();
+            disciplinasString[i] = this.turmas.get(i).getId() + " - " + this.turmas.get(i).getDisciplina().getNome();
+            if(this.turmas.get(i).getProfessor().getNome() != null)
+                disciplinasString[i] += " - " + this.turmas.get(i).getProfessor().getNome();
         }
         DefaultComboBoxModel model = new DefaultComboBoxModel(disciplinasString);
         this.turmasBox.setModel(model);

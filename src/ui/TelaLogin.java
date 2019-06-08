@@ -132,6 +132,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 TelaAdministrador administrador = new TelaAdministrador(fachada);
                 administrador.setVisible(true);
                 administrador.setResizable(false);
+                dispose();
             } catch(UsuarioNaoCadastradoException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             } catch(SenhaInvalidaException e2) {
@@ -143,6 +144,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 TelaAluno telaAluno = new TelaAluno(aluno, fachada);
                 telaAluno.setVisible(true);
                 telaAluno.setResizable(false);
+                dispose();
             } catch(UsuarioNaoCadastradoException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             } catch(SenhaInvalidaException e2) {
@@ -154,6 +156,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 TelaProfessor telaProfessor = new TelaProfessor(professor, fachada);
                 telaProfessor.setVisible(true);
                 telaProfessor.setResizable(false);
+                dispose();
             } catch (UsuarioNaoCadastradoException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             } catch (SenhaInvalidaException e2) {

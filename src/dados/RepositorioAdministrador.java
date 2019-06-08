@@ -85,7 +85,7 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
     }
 
     @Override
-    public boolean removerDisciplina(int disciplinaId) {
+    public boolean removerDisciplina(int disciplinaId) { // TODO - ajeitar a remoção da disciplina, remover a turma e os alunos daquela turma
         this.conexao.conectar();
 
         Statement statement = null;
@@ -217,7 +217,7 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
         ResultSet resultSet2 = null;
         Statement statement1 = null;
         Statement statement2 = null;
-        
+
         ArrayList<Turma> listaTurma = new ArrayList();
 
         int idTurma = 0;
@@ -241,7 +241,7 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
 
         try {
             resultSet1 = statement1.executeQuery(sqlSelect1);
-            
+
             if (resultSet1.next()) {
                 do {
                     idTurma = resultSet1.getInt("id");
@@ -257,14 +257,14 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
 
                     String sqlSelect2 = "select r.id_aluno as id_aluno, a.nome as nome_aluno from rendimentoescolar as r\n"
                             + "inner join aluno as a on r.id_aluno = a.id where id_turma = " + idTurma + ";";
-                    
+
                     statement2 = this.conexao.criarStatement();
-                    
+
                     resultSet2 = statement2.executeQuery(sqlSelect2);
-                    
+
                     ArrayList<Aluno> alunos = new ArrayList();
-                    
-                    if(resultSet2.next()) {
+
+                    if (resultSet2.next()) {
                         do {
                             int id = resultSet2.getInt("id_aluno");
                             String nome = resultSet2.getString("nome_aluno");
@@ -283,9 +283,11 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
         } finally {
             try {
                 resultSet1.close();
-                resultSet2.close();
                 statement1.close();
-                statement2.close();
+                if (resultSet2 != null) {
+                    resultSet2.close();
+                    statement2.close();
+                }
                 this.conexao.desconectar();
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());

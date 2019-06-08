@@ -125,13 +125,16 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
                 break;
             }
         }
-        Turma turma = new Turma(0,disc,null,(Integer.parseInt(capField.getText())),null);
+        
         try {
+            Turma turma = new Turma(0,disc,null,(Integer.parseInt(capField.getText())),null);
             if (this.fachada.cadastrarTurma(turma)) {
                 JOptionPane.showMessageDialog(null, "Turma cadastrada com sucesso!");
             }
         } catch (CapacidadeInvalidaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(NumberFormatException e2) {
+            JOptionPane.showMessageDialog(null, "Capacidade de alunos na turma inválida!");
         }
     }//GEN-LAST:event_cadastrarButtonActionPerformed
 
