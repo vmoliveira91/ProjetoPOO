@@ -26,8 +26,8 @@ public class TelaAlunoTurmasDisponiveis extends javax.swing.JFrame {
         if(this.turmas != null) {
             this.preencherBox();
             this.preencherTable();
-        } else {
-            this.matricularButton.setEnabled(false);
+            this.setVisible(true);
+            this.setResizable(false);
         }
     }
 

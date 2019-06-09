@@ -175,14 +175,10 @@ public class TelaProfessor extends javax.swing.JFrame {
             }
         }
         TelaProfessorDetalhesTurma detalhes = new TelaProfessorDetalhesTurma(turma, fachada);
-        detalhes.setVisible(true);
-        detalhes.setResizable(false);
     }//GEN-LAST:event_detalhesButtonActionPerformed
 
     private void turmasDispButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turmasDispButtonActionPerformed
         TelaProfessorTurmasDisponiveis disponiveis = new TelaProfessorTurmasDisponiveis(professor, fachada);
-        disponiveis.setVisible(true);
-        disponiveis.setResizable(false);
     }//GEN-LAST:event_turmasDispButtonActionPerformed
 
     private void atualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarButtonActionPerformed

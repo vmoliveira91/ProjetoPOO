@@ -27,10 +27,10 @@ public class TelaProfessorDetalhesTurma extends javax.swing.JFrame {
     private void pegarAlunos() {
         try {
             this.rendimento = this.fachada.exibirNotasProfessor(this.turma.getId());
+            setVisible(true);
+            setResizable(false);
         } catch (SemAlunoMatriculadoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            this.salvarButton.setEnabled(false);
-            this.mediasButton.setEnabled(false);
         }
     }
 

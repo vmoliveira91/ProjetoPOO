@@ -25,8 +25,8 @@ public class TelaProfessorTurmasDisponiveis extends javax.swing.JFrame {
         if(this.turmas != null) {
             this.preencherBox();
             this.preencherTable();
-        } else {
-            this.associarButton.setEnabled(false);
+            this.setVisible(true);
+            this.setResizable(false);
         }
     }
 

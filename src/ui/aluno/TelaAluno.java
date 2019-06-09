@@ -182,8 +182,6 @@ public class TelaAluno extends javax.swing.JFrame {
 
     private void turmasDispButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turmasDispButtonActionPerformed
         TelaAlunoTurmasDisponiveis disponiveis = new TelaAlunoTurmasDisponiveis(this.aluno, this.fachada);
-        disponiveis.setVisible(true);
-        disponiveis.setResizable(false);
     }//GEN-LAST:event_turmasDispButtonActionPerformed
 
     private void detalhesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detalhesButtonActionPerformed
