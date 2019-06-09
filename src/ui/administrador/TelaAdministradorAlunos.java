@@ -84,20 +84,14 @@ public class TelaAdministradorAlunos extends javax.swing.JFrame {
 
     private void consultarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarButtonActionPerformed
         TelaAdministradorAlunosConsultar consultar = new TelaAdministradorAlunosConsultar(this.fachada);
-        consultar.setVisible(true);
-        consultar.setResizable(false);
     }//GEN-LAST:event_consultarButtonActionPerformed
 
     private void listarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarButtonActionPerformed
         TelaAdministradorAlunosListar listar = new TelaAdministradorAlunosListar(this.fachada);
-        listar.setVisible(true);
-        listar.setResizable(false);
     }//GEN-LAST:event_listarButtonActionPerformed
 
     private void removerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonActionPerformed
         TelaAdministradorAlunosRemover remover = new TelaAdministradorAlunosRemover(this.fachada);
-        remover.setVisible(true);
-        remover.setResizable(false);
     }//GEN-LAST:event_removerButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

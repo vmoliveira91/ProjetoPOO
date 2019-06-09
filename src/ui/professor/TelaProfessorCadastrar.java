@@ -6,15 +6,15 @@ import negocios.entidades.Professor;
 import negocios.excecoes.UsuarioJaCadastradoException;
 
 public class TelaProfessorCadastrar extends javax.swing.JFrame {
-    
+
     private final Fachada fachada;
-    
+
     public TelaProfessorCadastrar(Fachada fachada) {
         initComponents();
         setLocationRelativeTo(null);
         this.fachada = fachada;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -28,10 +28,10 @@ public class TelaProfessorCadastrar extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         cadastrarButton = new javax.swing.JButton();
         nomeField = new javax.swing.JTextField();
-        nascField = new javax.swing.JTextField();
         cargoField = new javax.swing.JTextField();
         loginField = new javax.swing.JTextField();
         senhaField = new javax.swing.JPasswordField();
+        nascField = new javax.swing.JTextField();
 
         jTextField6.setText("jTextField6");
 
@@ -93,7 +93,7 @@ public class TelaProfessorCadastrar extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(loginField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cadastrarButton))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,20 +132,22 @@ public class TelaProfessorCadastrar extends javax.swing.JFrame {
         int ano, mes, dia;
         String data = this.nascField.getText();
         String[] dataSeparada = data.split("/");
-        dia = Integer.parseInt(dataSeparada[0]);
-        mes = Integer.parseInt(dataSeparada[1]);
-        ano = Integer.parseInt(dataSeparada[2]);                 
         try {
-            if(this.fachada.cadastrarProfessor(new Professor(0, this.nomeField.getText(), this.cargoField.getText(), dia, mes, ano,
+            dia = Integer.parseInt(dataSeparada[0]);
+            mes = Integer.parseInt(dataSeparada[1]);
+            ano = Integer.parseInt(dataSeparada[2]);
+            if (this.fachada.cadastrarProfessor(new Professor(0, this.nomeField.getText(), this.cargoField.getText(), dia, mes, ano,
                     this.loginField.getText(), this.senhaField.getText()))) {
                 JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
             }
             dispose();
         } catch (UsuarioJaCadastradoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Dados inválidos!");
         }
     }//GEN-LAST:event_cadastrarButtonActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarButton;
     private javax.swing.JTextField cargoField;

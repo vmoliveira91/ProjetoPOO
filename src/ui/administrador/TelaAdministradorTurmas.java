@@ -96,26 +96,18 @@ public class TelaAdministradorTurmas extends javax.swing.JFrame {
 
     private void removerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonActionPerformed
         TelaAdministradorTurmasRemover remover = new TelaAdministradorTurmasRemover(this.fachada);
-        remover.setVisible(true);
-        remover.setResizable(false);
     }//GEN-LAST:event_removerButtonActionPerformed
 
     private void listarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarButtonActionPerformed
         TelaAdministradorTurmasListar listar = new TelaAdministradorTurmasListar(this.fachada);
-        listar.setVisible(true);
-        listar.setResizable(false);
     }//GEN-LAST:event_listarButtonActionPerformed
 
     private void consultarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarButtonActionPerformed
         TelaAdministradorTurmasConsultar consultar = new TelaAdministradorTurmasConsultar(this.fachada);
-        consultar.setVisible(true);
-        consultar.setResizable(false);
     }//GEN-LAST:event_consultarButtonActionPerformed
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
         TelaAdministradorTurmasCadastrar cadastrar = new TelaAdministradorTurmasCadastrar(this.fachada);
-        cadastrar.setVisible(true);
-        cadastrar.setResizable(false);
     }//GEN-LAST:event_cadastrarButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

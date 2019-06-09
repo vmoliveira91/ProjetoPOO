@@ -18,6 +18,8 @@ public class TelaAdministradorTurmasListar extends javax.swing.JFrame {
         try {
             this.turmas = this.fachada.listarTurmas();
             this.preencherTable();
+            setVisible(true);
+            setResizable(false);
         } catch (SemTurmaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

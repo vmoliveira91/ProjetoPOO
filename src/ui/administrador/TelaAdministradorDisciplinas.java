@@ -100,20 +100,14 @@ public class TelaAdministradorDisciplinas extends javax.swing.JFrame {
 
     private void consultarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarButtonActionPerformed
         TelaAdministradorDisciplinasConsultar consultar = new TelaAdministradorDisciplinasConsultar(this.fachada);
-        consultar.setVisible(true);
-        consultar.setResizable(false);
     }//GEN-LAST:event_consultarButtonActionPerformed
 
     private void listarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarButtonActionPerformed
         TelaAdministradorDisciplinasListar listar = new TelaAdministradorDisciplinasListar(this.fachada);
-        listar.setVisible(true);
-        listar.setResizable(false);
     }//GEN-LAST:event_listarButtonActionPerformed
 
     private void removerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonActionPerformed
         TelaAdministradorDisciplinasRemover remover = new TelaAdministradorDisciplinasRemover(this.fachada);
-        remover.setVisible(true);
-        remover.setResizable(false);
     }//GEN-LAST:event_removerButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -18,6 +18,8 @@ public class TelaAdministradorProfessoresConsultar extends javax.swing.JFrame {
         try {
             this.professores = this.fachada.listarProfessores();
             this.preencherBox();
+            setVisible(true);
+            setResizable(false);
         } catch (UsuarioNaoCadastradoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

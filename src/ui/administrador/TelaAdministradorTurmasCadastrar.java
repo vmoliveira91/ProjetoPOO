@@ -20,6 +20,8 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
         try {
             this.disciplinas = this.fachada.listarDisciplinas();
             this.preencherBox();
+            setVisible(true);
+            setResizable(false);
         } catch (SemDisciplinaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

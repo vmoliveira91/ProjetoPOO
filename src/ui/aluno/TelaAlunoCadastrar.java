@@ -6,9 +6,9 @@ import negocios.entidades.Aluno;
 import negocios.excecoes.UsuarioJaCadastradoException;
 
 public class TelaAlunoCadastrar extends javax.swing.JFrame {
-    
+
     private final Fachada fachada;
-    
+
     public TelaAlunoCadastrar(Fachada fachada) {
         initComponents();
         setLocationRelativeTo(null);
@@ -130,19 +130,21 @@ public class TelaAlunoCadastrar extends javax.swing.JFrame {
         int ano, mes, dia;
         String data = this.nascField.getText();
         String[] dataSeparada = data.split("/");
-        dia = Integer.parseInt(dataSeparada[0]);
-        mes = Integer.parseInt(dataSeparada[1]);
-        ano = Integer.parseInt(dataSeparada[2]);
         try {
-            if(this.fachada.cadastrarAluno(new Aluno(0, this.nomeField.getText(), dia, mes, ano, Integer.parseInt(this.periodoField.getText()), this.loginField.getText(), this.senhaField.getText()))) {
+            dia = Integer.parseInt(dataSeparada[0]);
+            mes = Integer.parseInt(dataSeparada[1]);
+            ano = Integer.parseInt(dataSeparada[2]);
+            if (this.fachada.cadastrarAluno(new Aluno(0, this.nomeField.getText(), dia, mes, ano, Integer.parseInt(this.periodoField.getText()), this.loginField.getText(), this.senhaField.getText()))) {
                 JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso!");
             }
             dispose();
-        } catch(UsuarioJaCadastradoException ex) {
+        } catch (UsuarioJaCadastradoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Dados inválidos!");
         }
     }//GEN-LAST:event_cadastrarButtonActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarButton;
     private javax.swing.JButton jButton1;

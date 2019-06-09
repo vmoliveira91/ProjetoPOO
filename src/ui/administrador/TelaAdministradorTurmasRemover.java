@@ -18,6 +18,8 @@ public class TelaAdministradorTurmasRemover extends javax.swing.JFrame {
         try {
             this.turmas = this.fachada.listarTurmas();
             this.preencherBox();
+            setVisible(true);
+            setResizable(false);
         } catch (SemTurmaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -39,6 +41,7 @@ public class TelaAdministradorTurmasRemover extends javax.swing.JFrame {
             this.turmas = this.fachada.listarTurmas();
         } catch (SemTurmaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            dispose();
         }
     }
 

@@ -18,9 +18,10 @@ public class TelaAdministradorDisciplinasConsultar extends javax.swing.JFrame {
         try {
             this.disciplinas = this.fachada.listarDisciplinas();
             this.preencherBox();
+            setVisible(true);
+            setResizable(false);
         } catch (SemDisciplinaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            dispose();
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);

@@ -18,6 +18,8 @@ public class TelaAdministradorProfessoresRemover extends javax.swing.JFrame {
         try {
             this.professores = this.fachada.listarProfessores();
             this.preencherBox();
+            setVisible(true);
+            setResizable(false);
         } catch (UsuarioNaoCadastradoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -39,6 +41,7 @@ public class TelaAdministradorProfessoresRemover extends javax.swing.JFrame {
             this.professores = this.fachada.listarProfessores();
         } catch (UsuarioNaoCadastradoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            dispose();
         }
     }
 

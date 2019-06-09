@@ -88,14 +88,31 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
     public boolean removerDisciplina(int disciplinaId) { // TODO - ajeitar a remoção da disciplina, remover a turma e os alunos daquela turma
         this.conexao.conectar();
 
+        ResultSet resultSet = null;
         Statement statement = null;
+
+        int turmaId = 0;
 
         statement = this.conexao.criarStatement();
 
-        String sqlDelete = "delete from disciplina where id = " + disciplinaId + ";";
+        String sqlSelect = "select id from turma where id_disciplina = " + disciplinaId + ";";
 
         try {
-            statement.executeUpdate(sqlDelete);
+            resultSet = statement.executeQuery(sqlSelect);
+
+            String sqlDelete1 = "delete from disciplina where id = " + disciplinaId + ";";
+
+            if (resultSet.next()) {
+                turmaId = resultSet.getInt("id");
+                resultSet.close();
+                String sqlDelete2 = "delete from turma where id = " + turmaId + ";";
+                String sqlDelete3 = "delete from rendimentoescolar where id_turma = " + turmaId + ";";
+                statement.executeUpdate(sqlDelete2);
+                statement.executeUpdate(sqlDelete3);
+            }
+
+            statement.executeUpdate(sqlDelete1);
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -190,12 +207,14 @@ public class RepositorioAdministrador implements IRepositorioAdministrador {
 
         Statement statement = null;
 
-        String sqlDelete = "delete from turma where id = " + turmaId + ";";
+        String sqlDelete1 = "delete from turma where id = " + turmaId + ";";
+        String sqlDelete2 = "delete from rendimentoescolar where id_turma = " + turmaId + ";";
 
         statement = this.conexao.criarStatement();
 
         try {
-            statement.executeUpdate(sqlDelete);
+            statement.executeUpdate(sqlDelete1);
+            statement.executeUpdate(sqlDelete2);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {

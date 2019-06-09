@@ -18,9 +18,10 @@ public class TelaAdministradorDisciplinasRemover extends javax.swing.JFrame {
         try {
             this.disciplinas = this.fachada.listarDisciplinas();
             this.preencherBox();
+            setVisible(true);
+            setResizable(false);
         } catch (SemDisciplinaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            dispose();
         }
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -40,6 +41,7 @@ public class TelaAdministradorDisciplinasRemover extends javax.swing.JFrame {
             this.disciplinas = this.fachada.listarDisciplinas();
         } catch (SemDisciplinaCadastradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            dispose();
         }
     }
 
@@ -97,7 +99,6 @@ public class TelaAdministradorDisciplinasRemover extends javax.swing.JFrame {
 
     private void removerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonActionPerformed
         String disciplinaSelecionada = this.disciplinasBox.getSelectedItem().toString();
-        Disciplina disc = null;
         int disciplinaId = Integer.parseInt(disciplinaSelecionada.split(" ")[0]);
         if (this.fachada.removerDisciplina(disciplinaId)) {
             JOptionPane.showMessageDialog(null, "Disciplina removida com sucesso!");
