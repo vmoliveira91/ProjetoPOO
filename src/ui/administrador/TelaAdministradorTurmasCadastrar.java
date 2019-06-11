@@ -132,6 +132,7 @@ public class TelaAdministradorTurmasCadastrar extends javax.swing.JFrame {
             Turma turma = new Turma(0,disc,null,(Integer.parseInt(capField.getText())),null);
             if (this.fachada.cadastrarTurma(turma)) {
                 JOptionPane.showMessageDialog(null, "Turma cadastrada com sucesso!");
+                dispose();
             }
         } catch (CapacidadeInvalidaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
