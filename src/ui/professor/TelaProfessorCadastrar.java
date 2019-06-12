@@ -129,22 +129,26 @@ public class TelaProfessorCadastrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
-        int ano, mes, dia;
-        String data = this.nascField.getText();
-        String[] dataSeparada = data.split("/");
-        try {
-            dia = Integer.parseInt(dataSeparada[0]);
-            mes = Integer.parseInt(dataSeparada[1]);
-            ano = Integer.parseInt(dataSeparada[2]);
-            if (this.fachada.cadastrarProfessor(new Professor(0, this.nomeField.getText(), this.cargoField.getText(), dia, mes, ano,
+        if(this.nomeField.getText().equals("") || this.nascField.getText().equals("") || this.cargoField.getText().equals("") || this.loginField.getText().equals("") || this.senhaField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Favor preencher os dados corretamente!");
+        } else {
+            int ano, mes, dia;
+            String data = this.nascField.getText();
+            String[] dataSeparada = data.split("/");
+            try {
+                dia = Integer.parseInt(dataSeparada[0]);
+                mes = Integer.parseInt(dataSeparada[1]);
+                ano = Integer.parseInt(dataSeparada[2]);
+                if (this.fachada.cadastrarProfessor(new Professor(0, this.nomeField.getText(), this.cargoField.getText(), dia, mes, ano,
                     this.loginField.getText(), this.senhaField.getText()))) {
-                JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
+                    JOptionPane.showMessageDialog(null, "Professor cadastrado com sucesso!");
+                }
+                dispose();
+            } catch (UsuarioJaCadastradoException ex) {
+             JOptionPane.showMessageDialog(null, ex.getMessage());
+            } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {
+                JOptionPane.showMessageDialog(null, "Dados inválidos!");
             }
-            dispose();
-        } catch (UsuarioJaCadastradoException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (NumberFormatException|ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Dados inválidos!");
         }
     }//GEN-LAST:event_cadastrarButtonActionPerformed
 

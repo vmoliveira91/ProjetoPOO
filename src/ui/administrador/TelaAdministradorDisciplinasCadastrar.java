@@ -91,9 +91,13 @@ public class TelaAdministradorDisciplinasCadastrar extends javax.swing.JFrame {
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
         Disciplina disciplina = new Disciplina(0, nomeField.getText(), ementaField.getText());
-        if (this.fachada.cadastrarDisciplina(disciplina)) {
-            JOptionPane.showMessageDialog(null, "Disciplina cadastrada com sucesso!");
-            dispose();
+        if(disciplina.getNome().equals("") || disciplina.getEmenta().equals("")) {
+            JOptionPane.showMessageDialog(null, "Favor preencher os dados corretamente!");
+        } else {
+            if (this.fachada.cadastrarDisciplina(disciplina)) {
+                JOptionPane.showMessageDialog(null, "Disciplina cadastrada com sucesso!");
+                dispose();
+            }
         }
     }//GEN-LAST:event_cadastrarButtonActionPerformed
 
